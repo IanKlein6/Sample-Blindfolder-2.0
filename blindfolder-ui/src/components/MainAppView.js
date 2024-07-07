@@ -1,30 +1,34 @@
 // src/components/MainAppView.js
 import React from 'react';
-import { Button, List, ListItem, ListItemText, IconButton } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Box, Button, Typography } from '@mui/material';
 
 function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFolder }) {
   return (
-    <div>
-      <h1>{selectedApp}</h1>
-      <Button variant="contained" color="primary" onClick={onAddFolder}>
-        Add Folder
-      </Button>
-      <List>
+    <Box sx={{ padding: 5, backgroundColor: 'background.paperlight', height: '100%' }}>
+      <Typography variant="h4" gutterBottom>
+        {selectedApp}
+      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
+        <Button variant="contained" onClick={onAddFolder}>
+          Add Folder
+        </Button>
+        <Button variant="contained" onClick={onRename}>
+          Rename
+        </Button>
+      </Box>
+      <Box sx={{ marginTop:2 }}>
         {folders.map((folder, index) => (
-          <ListItem key={index} secondaryAction={
-            <IconButton edge="end" aria-label="delete" onClick={() => onRemoveFolder(index)}>
-              <DeleteIcon />
-            </IconButton>
-          }>
-            <ListItemText primary={folder} />
-          </ListItem>
+          <Box key={index} sx={{ display: 'flex', alignItems: 'center', marginBottom: 1 }}>
+            <Typography variant="body1" sx={{ flexGrow: 1 }}>
+              {folder}
+            </Typography>
+            <Button variant="outlined" color="secondary" onClick={() => onRemoveFolder(index)}>
+              Remove
+            </Button>
+          </Box>
         ))}
-      </List>
-      <Button variant="contained" color="secondary" onClick={onRename}>
-        Destination - Blindfold
-      </Button>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

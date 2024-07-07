@@ -1,10 +1,11 @@
 // src/App.js
-import React, { useState } from 'react';
-import { CssBaseline, Container, Grid, Paper, CircularProgress, Backdrop } from '@mui/material';
+import React, { useState, useMemo } from 'react';
+import { CssBaseline, Grid, Paper, CircularProgress, Backdrop, ThemeProvider } from '@mui/material';
 import AppSelector from './components/AppSelector';
 import MainAppView from './components/MainAppView';
 import SettingsPanel from './components/SettingsPanel';
 import FolderNameModal from './components/FolderNameModal';
+import { lightTheme, darkTheme } from './theme';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -15,11 +16,14 @@ function App() {
     autoName: false,
     namingPrefix: '',
     fileFormat: 'xlsx',
+    darkMode: false,
   });
   const [folders, setFolders] = useState([]);
   const [destinationFolder, setDestinationFolder] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const theme = useMemo(() => (settings.darkMode ? darkTheme : lightTheme), [settings.darkMode]);
 
   const handleAddFolder = async () => {
     const selectedFolders = await ipcRenderer.invoke('select-folders');
@@ -76,33 +80,31 @@ function App() {
   };
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="lg">
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={3}>
-            <Paper>
-              <AppSelector selectedApp={selectedApp} setSelectedApp={setSelectedApp} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Paper>
-              <MainAppView
-                selectedApp={selectedApp}
-                folders={folders}
-                onAddFolder={handleAddFolder}
-                onRename={handleRename}
-                onRemoveFolder={handleRemoveFolder}
-              />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <Paper>
-              <SettingsPanel settings={settings} setSettings={setSettings} />
-            </Paper>
-          </Grid>
+      <Grid container sx={{ height: '100vh' }}>
+        <Grid item xs={12} sm={3} md={2} lg={2} sx={{ borderRight: '1px solid', borderColor: 'divider', padding: 0 }}>
+          <Paper sx={{ height: '100%', padding: 2 }}>
+            <AppSelector selectedApp={selectedApp} setSelectedApp={setSelectedApp} />
+          </Paper>
         </Grid>
-      </Container>
+        <Grid item xs={12} sm={6} md={7} lg={7} sx={{ borderRight: '1px solid', borderColor: 'divider', padding: 0 }}>
+          <Paper sx={{ height: '100%', padding: 0 }}>
+            <MainAppView
+              selectedApp={selectedApp}
+              folders={folders}
+              onAddFolder={handleAddFolder}
+              onRename={handleRename}
+              onRemoveFolder={handleRemoveFolder}
+            />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={3} md={3} lg={3} sx={{ padding: 0 }}>
+          <Paper sx={{ height: '100%', padding: 2 }}>
+            <SettingsPanel settings={settings} setSettings={setSettings} />
+          </Paper>
+        </Grid>
+      </Grid>
       <FolderNameModal
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -111,7 +113,7 @@ function App() {
       <Backdrop style={{ zIndex: 1301 }} open={isProcessing}>
         <CircularProgress color="inherit" />
       </Backdrop>
-    </>
+    </ThemeProvider>
   );
 }
 
