@@ -1,0 +1,19 @@
+{
+  "name": "blindfolder-2",
+  "version": "1.0.0",
+  "description": "Sample Blindfolder using Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager . SampleBlindfolder --platform=darwin,win32,linux --arch=x64 --out=dist"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^25.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "electron-packager": "^15.0.0"
+  }
+}

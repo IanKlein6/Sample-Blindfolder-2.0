@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Blindfolder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .container {
+      text-align: center;
+    }
+    .folders-list {
+      margin: 20px 0;
+      width: 80%;
+    }
+    .folder-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 5px 0;
+      padding: 5px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+    }
+    .folder-item button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .destination-folder {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .dialog {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .dialog input {
+      margin-bottom: 10px;
+      padding: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .dialog button {
+      padding: 5px 10px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sample Blindfolder</h1>
+    <p>Add folders for Sample Blindfolding and click 'Destination - Blindfold' when ready.</p>
+    <button id="add-folder">Add Folder</button>
+    <div id="folders-list" class="folders-list"></div>
+    <button id="rename-button">Destination - Blindfold</button>
+    <div id="destination-folder" class="destination-folder"></div>
+  </div>
+
+  <div class="dialog" id="input-dialog">
+    <h2>Enter Folder Name</h2>
+    <input type="text" id="folder-name-input" placeholder="Folder Name" />
+    <button id="dialog-ok">OK</button>
+    <button id="dialog-cancel">Cancel</button>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    const addFolderButton = document.getElementById('add-folder');
+    const renameButton = document.getElementById('rename-button');
+    const foldersList = document.getElementById('folders-list');
+    const destinationFolderDiv = document.getElementById('destination-folder');
+    const inputDialog = document.getElementById('input-dialog');
+    const folderNameInput = document.getElementById('folder-name-input');
+    const dialogOkButton = document.getElementById('dialog-ok');
+    const dialogCancelButton = document.getElementById('dialog-cancel');
+    let folders = [];
+    let destinationFolder = '';
+
+    addFolderButton.addEventListener('click', async () => {
+      try {
+        const selectedFolders = await ipcRenderer.invoke('select-folders');
+        folders = [...folders, ...selectedFolders];
+        console.log('Selected folders:', selectedFolders);
+        updateFoldersList();
+      } catch (error) {
+        console.error('Error selecting folders:', error);
+      }
+    });
+
+    renameButton.addEventListener('click', async () => {
+      console.log('Rename button clicked');
+      if (folders.length === 0) {
+        alert('No folders selected.');
+        return;
+      }
+
+      try {
+        destinationFolder = await ipcRenderer.invoke('select-destination');
+        console.log('Selected destination folder:', destinationFolder);
+        if (!destinationFolder) return;
+
+        showInputDialog();
+        updateDestinationFolder();
+      } catch (error) {
+        console.error('Error selecting destination folder:', error);
+      }
+    });
+
+    function showInputDialog() {
+      inputDialog.style.display = 'block';
+    }
+
+    dialogOkButton.addEventListener('click', async () => {
+      const folderName = folderNameInput.value.trim();
+      if (!folderName) {
+        alert('Folder name cannot be empty.');
+        return;
+      }
+
+      inputDialog.style.display = 'none';
+      try {
+        const excelFilePath = await ipcRenderer.invoke('process-folders', folders, destinationFolder, folderName);
+        alert(`Renaming process complete. Log saved to ${excelFilePath}`);
+        console.log(`Excel file created at: ${excelFilePath}`);
+
+        const openFolder = confirm('Would you like to open the destination folder?');
+        if (openFolder) {
+          ipcRenderer.invoke('open-folder', destinationFolder);
+        }
+      } catch (error) {
+        console.error('Error processing folders:', error);
+      }
+    });
+
+    dialogCancelButton.addEventListener('click', () => {
+      inputDialog.style.display = 'none';
+    });
+
+    function updateFoldersList() {
+      foldersList.innerHTML = '';
+      folders.forEach((folder, index) => {
+        const folderItem = document.createElement('div');
+        folderItem.classList.add('folder-item');
+
+        const folderName = document.createElement('span');
+        folderName.textContent = folder;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', () => {
+          folders.splice(index, 1);
+          updateFoldersList();
+        });
+
+        folderItem.appendChild(folderName);
+        folderItem.appendChild(deleteButton);
+        foldersList.appendChild(folderItem);
+      });
+    }
+
+    function updateDestinationFolder() {
+      destinationFolderDiv.textContent = `Destination Folder: ${destinationFolder}`;
+    }
+  </script>
+</body>
+</html>
