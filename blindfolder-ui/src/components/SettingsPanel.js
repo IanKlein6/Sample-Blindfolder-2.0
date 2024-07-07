@@ -1,8 +1,10 @@
 // src/components/SettingsPanel.js
 import React from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Switch, FormControlLabel, TextField, Box } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, Switch, FormControlLabel, TextField, Box, useTheme, Button } from '@mui/material';
 
 function SettingsPanel({ settings, setSettings }) {
+  const theme = useTheme();
+
   const handleChange = (event) => {
     const { name, value, checked, type } = event.target;
     setSettings({
@@ -45,6 +47,12 @@ function SettingsPanel({ settings, setSettings }) {
         label="Dark Mode"
         sx={{ marginTop: 2 }}
       />
+      <Button
+        variant="contained"
+        sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.secondary.contrastText, '&:hover': { backgroundColor: theme.palette.secondary.dark } }}
+      >
+        Apply Settings
+      </Button>
     </Box>
   );
 }

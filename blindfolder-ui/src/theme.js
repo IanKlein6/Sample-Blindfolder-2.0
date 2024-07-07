@@ -17,6 +17,16 @@ const skypePalette = {
     primary: '#1c1c1c',
     secondary: '#595959',
   },
+  custom: {
+    button1: {
+      background: '#e4eef2',
+      fontcolor: '#000000',
+    },
+    button2: {
+      background: '#f9f9f9',
+      fontcolor: '#ffffff',
+    },
+  },
 };
 
 const discordPalette = {
@@ -34,6 +44,16 @@ const discordPalette = {
   text: {
     primary: '#ffffff',
     secondary: '#b9bbbe',
+  },
+  custom: {
+    button1: {
+      background: '#7289da',
+      fontcolor: '#ffffff',
+    },
+    button2: {
+      background: '#99aab5',
+      fontcolor: '#23272a',
+    },
   },
 };
 
