@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useState } from 'react';
-import { CssBaseline, Container, Grid, Paper } from '@mui/material';
+import { CssBaseline, Container, Grid, Paper, CircularProgress, Backdrop } from '@mui/material';
 import AppSelector from './components/AppSelector';
 import MainAppView from './components/MainAppView';
 import SettingsPanel from './components/SettingsPanel';
@@ -13,10 +13,13 @@ function App() {
   const [settings, setSettings] = useState({
     autoOpen: false,
     autoName: false,
+    namingPrefix: '',
+    fileFormat: 'xlsx',
   });
   const [folders, setFolders] = useState([]);
   const [destinationFolder, setDestinationFolder] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleAddFolder = async () => {
     const selectedFolders = await ipcRenderer.invoke('select-folders');
@@ -44,13 +47,26 @@ function App() {
     }
 
     setIsModalOpen(false);
+    setIsProcessing(true);
 
-    const excelFilePath = await ipcRenderer.invoke('process-folders', folders, destinationFolder, folderName);
-    console.log('Excel file created at:', excelFilePath);
-    alert(`Renaming process complete. Log saved to ${excelFilePath}`);
+    try {
+      const excelFilePath = await ipcRenderer.invoke('process-folders', {
+        folders,
+        destinationFolder,
+        folderName,
+        settings,
+      });
+      console.log('Excel file created at:', excelFilePath);
+      alert(`Renaming process complete. Log saved to ${excelFilePath}`);
 
-    if (settings.autoOpen) {
-      await ipcRenderer.invoke('open-folder', destinationFolder);
+      if (settings.autoOpen) {
+        await ipcRenderer.invoke('open-folder', destinationFolder);
+      }
+    } catch (error) {
+      console.error('Error processing folders:', error);
+      alert('An error occurred while processing the folders. Please try again.');
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -92,6 +108,9 @@ function App() {
         onClose={() => setIsModalOpen(false)}
         onSave={handleSaveFolderName}
       />
+      <Backdrop style={{ zIndex: 1301 }} open={isProcessing}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 }

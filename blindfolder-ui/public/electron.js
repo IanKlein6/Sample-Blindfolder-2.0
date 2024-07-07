@@ -1,3 +1,4 @@
+// blindfolder-ui/public/electron.js
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -22,7 +23,7 @@ function createWindow() {
   mainWindow.loadURL(
     isDev
       ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '../blindfolder-ui/build/index.html')}`
+      : `file://${path.join(__dirname, '../build/index.html')}`
   );
 
   mainWindow.on('closed', () => (mainWindow = null));
@@ -58,7 +59,11 @@ ipcMain.handle('select-destination', async () => {
   return result.filePaths[0];
 });
 
-ipcMain.handle('process-folders', async (event, folders, destinationFolder, folderName) => {
+ipcMain.handle('process-folders', async (event, { folders, destinationFolder, folderName, settings }) => {
+  if (!folders || !destinationFolder || !folderName) {
+    throw new Error('Invalid arguments');
+  }
+
   const outputFolder = path.join(destinationFolder, folderName);
   console.log('Output folder:', outputFolder);
   
@@ -83,11 +88,12 @@ ipcMain.handle('process-folders', async (event, folders, destinationFolder, fold
     shuffleArray(allFiles);
 
     const renameData = [];
+    const prefix = settings.namingPrefix || currentDate;
 
     for (let index = 0; index < allFiles.length; index++) {
       const filePath = allFiles[index];
       const fileName = path.basename(filePath);
-      const newFilename = `${currentDate}_sample_${index + 1}${path.extname(fileName)}`;
+      const newFilename = `${prefix}_sample_${index + 1}${path.extname(fileName)}`;
       const destinationPath = path.join(outputFolder, newFilename);
 
       try {
@@ -101,24 +107,30 @@ ipcMain.handle('process-folders', async (event, folders, destinationFolder, fold
 
     console.log('Rename data:', renameData);
 
-    const workbook = new ExcelJS.Workbook();
-    const sortedByBlind = workbook.addWorksheet('Sorted by Blind Samples');
-    const sortedByOriginal = workbook.addWorksheet('Sorted by Original Samples');
+    if (settings.fileFormat === 'xlsx') {
+      const workbook = new ExcelJS.Workbook();
+      const sortedByBlind = workbook.addWorksheet('Sorted by Blind Samples');
+      const sortedByOriginal = workbook.addWorksheet('Sorted by Original Samples');
 
-    renameData.sort((a, b) => extractNumberForSorting(a['Blind Samples']) - extractNumberForSorting(b['Blind Samples']));
-    sortedByBlind.addRow(['Blind Samples', 'Original Samples']);
-    renameData.forEach(data => sortedByBlind.addRow([data['Blind Samples'], data['Original Samples']]));
+      renameData.sort((a, b) => extractNumberForSorting(a['Blind Samples']) - extractNumberForSorting(b['Blind Samples']));
+      sortedByBlind.addRow(['Blind Samples', 'Original Samples']);
+      renameData.forEach(data => sortedByBlind.addRow([data['Blind Samples'], data['Original Samples']]));
 
-    renameData.sort((a, b) => extractNumberForSorting(a['Original Samples']) - extractNumberForSorting(b['Original Samples']));
-    sortedByOriginal.addRow(['Original Samples', 'Blind Samples']);
-    renameData.forEach(data => sortedByOriginal.addRow([data['Original Samples'], data['Blind Samples']]));
+      renameData.sort((a, b) => extractNumberForSorting(a['Original Samples']) - extractNumberForSorting(b['Original Samples']));
+      sortedByOriginal.addRow(['Original Samples', 'Blind Samples']);
+      renameData.forEach(data => sortedByOriginal.addRow([data['Original Samples'], data['Blind Samples']]));
 
-    const excelFilename = path.join(outputFolder, 'Blindfold_log.xlsx');
-    await workbook.xlsx.writeFile(excelFilename);
-
-    console.log('Excel file created at:', excelFilename);
-
-    return excelFilename;
+      const excelFilename = path.join(outputFolder, 'Blindfold_log.xlsx');
+      await workbook.xlsx.writeFile(excelFilename);
+      console.log('Excel file created at:', excelFilename);
+      return excelFilename;
+    } else if (settings.fileFormat === 'csv') {
+      const csvContent = renameData.map(data => `${data['Original Samples']},${data['Blind Samples']}`).join('\n');
+      const csvFilename = path.join(outputFolder, 'Blindfold_log.csv');
+      fs.writeFileSync(csvFilename, csvContent);
+      console.log('CSV file created at:', csvFilename);
+      return csvFilename;
+    }
   } catch (error) {
     console.error('Error processing folders:', error);
     throw error;
