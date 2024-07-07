@@ -1,0 +1,23 @@
+{
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "description": "Sample Blindfolder using Electron and React",
+  "main": "blindfolder-ui/public/electron.js",
+  "scripts": {
+    "start": "concurrently \"npm run react-start\" \"npm run electron-start\"",
+    "react-start": "npm start --prefix blindfolder-ui",
+    "electron-start": "wait-on http://localhost:3000 && electron .",
+    "build": "npm run build --prefix blindfolder-ui",
+    "package": "electron-packager . SampleBlindfolder --platform=darwin,win32,linux --arch=x64 --out=dist"
+  },
+  "dependencies": {
+    "concurrently": "^6.2.0",
+    "electron": "^25.0.0",
+    "electron-is-dev": "^2.0.0",
+    "exceljs": "^4.4.0",
+    "wait-on": "^5.3.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^15.0.0"
+  }
+}
