@@ -7,7 +7,7 @@ function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFold
 
   return (
     <Box sx={{ padding: 5, backgroundColor: 'background.paperlight', height: '100%' }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom align="center">
         {selectedApp}
       </Typography>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -17,13 +17,6 @@ function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFold
           sx={{ backgroundColor: theme.palette.custom.button1.background, color: theme.palette.custom.button1.fontcolor, '&:hover': { backgroundColor: theme.palette.custom.button1.background } }}
         >
           Add Folder
-        </Button>
-        <Button
-          variant="contained"
-          onClick={onRename}
-          sx={{ backgroundColor: theme.palette.custom.button1.background, color: theme.palette.custom.button1.fontcolor, '&:hover': { backgroundColor: theme.palette.custom.button1.background } }}
-        >
-          Rename
         </Button>
       </Box>
       <Box sx={{ marginTop: 2 }}>
@@ -41,6 +34,15 @@ function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFold
             </Button>
           </Box>
         ))}
+      </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
+        <Button
+          variant="contained"
+          onClick={onRename}
+          sx={{ backgroundColor: theme.palette.custom.button2.background, color: theme.palette.custom.button2.fontcolor, '&:hover': { backgroundColor: theme.palette.custom.button2.background } }}
+        >
+          Rename
+        </Button>
       </Box>
     </Box>
   );

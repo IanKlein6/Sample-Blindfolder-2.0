@@ -83,26 +83,20 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Grid container sx={{ height: '100vh' }}>
-        <Grid item xs={12} sm={3} md={2} lg={2} sx={{ borderRight: '1px solid', borderColor: 'divider', padding: 0 }}>
-          <Paper sx={{ height: '100%', padding: 2 }}>
-            <AppSelector selectedApp={selectedApp} setSelectedApp={setSelectedApp} />
-          </Paper>
+        <Grid item xs={12} md={3} sx={{ backgroundColor: 'background.paperdark', borderRight: '1px solid', borderColor: 'divider', padding: 2 }}>
+          <AppSelector selectedApp={selectedApp} setSelectedApp={setSelectedApp} />
         </Grid>
-        <Grid item xs={12} sm={6} md={7} lg={7} sx={{ borderRight: '1px solid', borderColor: 'divider', padding: 0 }}>
-          <Paper sx={{ height: '100%', padding: 0 }}>
-            <MainAppView
-              selectedApp={selectedApp}
-              folders={folders}
-              onAddFolder={handleAddFolder}
-              onRename={handleRename}
-              onRemoveFolder={handleRemoveFolder}
-            />
-          </Paper>
+        <Grid item xs={12} md={6} sx={{ backgroundColor: 'background.paperlight', borderRight: '1px solid', borderColor: 'divider' }}>
+          <MainAppView
+            selectedApp={selectedApp}
+            folders={folders}
+            onAddFolder={handleAddFolder}
+            onRename={handleRename}
+            onRemoveFolder={handleRemoveFolder}
+          />
         </Grid>
-        <Grid item xs={12} sm={3} md={3} lg={3} sx={{ padding: 0 }}>
-          <Paper sx={{ height: '100%', padding: 2 }}>
-            <SettingsPanel settings={settings} setSettings={setSettings} />
-          </Paper>
+        <Grid item xs={12} md={3} sx={{ backgroundColor: 'background.paperdark' }}>
+          <SettingsPanel settings={settings} setSettings={setSettings} />
         </Grid>
       </Grid>
       <FolderNameModal

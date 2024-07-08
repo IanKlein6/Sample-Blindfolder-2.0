@@ -1,73 +1,74 @@
 // src/theme.js
 import { createTheme } from '@mui/material/styles';
 
-const skypePalette = {
+const lightPalette = {
   primary: {
-    main: '#00aff0',
+    main: '#00aff0', // Primary Color
   },
   secondary: {
-    main: '#0078d7',
+    main: '#75ab00', // Secondary Color
   },
   background: {
-    default: '#ffffff',
-    paper: '#e4eef2',
-    paperlight: '#f9f9f9',
+    default: '#ffffff', // White Background
+    paper: '#f0f4f8', // Light Blue/Grey Paper
+    paperdark: '#e4eef2', // Very Light Blue/Grey Paper
   },
   text: {
-    primary: '#1c1c1c',
-    secondary: '#595959',
+    primary: '#2b5464', // Dark Text
+    secondary: '#555756', // Medium Text
   },
   custom: {
     button1: {
-      background: '#e4eef2',
-      fontcolor: '#000000',
+      background: '#00aff0',
+      color: '#ffffff',
     },
     button2: {
-      background: '#f9f9f9',
-      fontcolor: '#ffffff',
+      background: '#75ab00',
+      color: '#ffffff',
     },
   },
 };
 
-const discordPalette = {
+const darkPalette = {
   primary: {
-    main: '#7289da',
+    main: '#00aff0', // Primary Color
   },
   secondary: {
-    main: '#99aab5',
+    main: '#75ab00', // Secondary Color
   },
   background: {
-    default: '#2c2f33',
-    paper: '#23272a',
-    paperlight: '#595f66',
+    default: '#2c2f33', // Dark Background
+    paper: '#23272a', // Dark Paper
+    paperdark: '#3a3e42', // Medium Dark Paper
   },
   text: {
-    primary: '#ffffff',
-    secondary: '#b9bbbe',
+    primary: '#ffffff', // Light Text
+    secondary: '#b9bbbe', // Medium Light Text
   },
   custom: {
     button1: {
-      background: '#7289da',
-      fontcolor: '#ffffff',
+      background: '#00aff0',
+      color: '#ffffff',
     },
     button2: {
-      background: '#99aab5',
-      fontcolor: '#23272a',
+      background: '#75ab00',
+      color: '#ffffff',
     },
   },
 };
+
 
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
-    ...skypePalette,
+    ...lightPalette,
   },
 });
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    ...discordPalette,
+    ...darkPalette,
   },
 });
 
