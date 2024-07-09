@@ -1,74 +1,74 @@
-// src/theme.js
 import { createTheme } from '@mui/material/styles';
 
-const lightPalette = {
+const skypePalette = {
   primary: {
-    main: '#00aff0', // Primary Color
+    main: '#00aff0',
   },
   secondary: {
-    main: '#75ab00', // Secondary Color
+    main: '#0078d7',
   },
   background: {
-    default: '#ffffff', // White Background
-    paper: '#f0f4f8', // Light Blue/Grey Paper
-    paperdark: '#e4eef2', // Very Light Blue/Grey Paper
+    default: '#ffffff',
+    paper: '#f0f0f0',
+    paperdark: '#e4eef2',
+    paperlight: '#ffffff',
   },
   text: {
-    primary: '#2b5464', // Dark Text
-    secondary: '#555756', // Medium Text
+    primary: '#1c1c1c',
+    secondary: '#595959',
   },
   custom: {
     button1: {
-      background: '#00aff0',
+      background: '#0078d7',
       color: '#ffffff',
     },
     button2: {
-      background: '#75ab00',
+      background: '#00aff0',
       color: '#ffffff',
     },
   },
 };
 
-const darkPalette = {
+const discordPalette = {
   primary: {
-    main: '#00aff0', // Primary Color
+    main: '#7289da',
   },
   secondary: {
-    main: '#75ab00', // Secondary Color
+    main: '#99aab5',
   },
   background: {
-    default: '#2c2f33', // Dark Background
-    paper: '#23272a', // Dark Paper
-    paperdark: '#3a3e42', // Medium Dark Paper
+    default: '#2c2f33',
+    paper: '#23272a',
+    paperdark: '#2b5464',
+    paperlight: '#2c2f33',
   },
   text: {
-    primary: '#ffffff', // Light Text
-    secondary: '#b9bbbe', // Medium Light Text
+    primary: '#ffffff',
+    secondary: '#b9bbbe',
   },
   custom: {
     button1: {
-      background: '#00aff0',
+      background: '#7289da',
       color: '#ffffff',
     },
     button2: {
-      background: '#75ab00',
-      color: '#ffffff',
+      background: '#99aab5',
+      color: '#23272a',
     },
   },
 };
-
 
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
-    ...lightPalette,
+    ...skypePalette,
   },
 });
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    ...darkPalette,
+    ...discordPalette,
   },
 });
 

@@ -18,6 +18,13 @@ function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFold
         >
           Add Folder
         </Button>
+        <Button
+          variant="contained"
+          onClick={onRename}
+          sx={{ backgroundColor: theme.palette.custom.button2.background, color: theme.palette.custom.button2.fontcolor, '&:hover': { backgroundColor: theme.palette.custom.button2.background } }}
+        >
+          Rename
+        </Button>
       </Box>
       <Box sx={{ marginTop: 2 }}>
         {folders.map((folder, index) => (
@@ -34,15 +41,6 @@ function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFold
             </Button>
           </Box>
         ))}
-      </Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
-        <Button
-          variant="contained"
-          onClick={onRename}
-          sx={{ backgroundColor: theme.palette.custom.button2.background, color: theme.palette.custom.button2.fontcolor, '&:hover': { backgroundColor: theme.palette.custom.button2.background } }}
-        >
-          Rename
-        </Button>
       </Box>
     </Box>
   );

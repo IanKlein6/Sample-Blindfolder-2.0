@@ -1,8 +1,8 @@
-// src/components/SettingsPanel.js
 import React from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Switch, FormControlLabel, TextField, Box, Grid, Typography } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, Switch, FormControlLabel, TextField, Box, Button, Grid, useTheme, Typography } from '@mui/material';
 
-function SettingsPanel({ settings, setSettings }) {
+function SettingsPanel({ settings, setSettings, onShowInstructions }) {
+  const theme = useTheme();
 
   const handleChange = (event) => {
     const { name, value, checked, type } = event.target;
@@ -31,13 +31,6 @@ function SettingsPanel({ settings, setSettings }) {
             label={<Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>Automatic Naming Schemes</Typography>}
             sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}
           />
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Switch checked={settings.darkMode} onChange={handleChange} name="darkMode" />}
-            label={<Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>Dark Mode</Typography>}
-            sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}
-          />
-        </Grid>
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -64,6 +57,29 @@ function SettingsPanel({ settings, setSettings }) {
               <MenuItem value="csv">CSV</MenuItem>
             </Select>
           </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={<Switch checked={settings.darkMode} onChange={handleChange} name="darkMode" />}
+            label={<Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>Dark Mode</Typography>}
+            sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={<Switch checked={settings.showInstructions} onChange={handleChange} name="showInstructions" />}
+            label={<Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>Show Instructions on Startup</Typography>}
+            sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            onClick={onShowInstructions}
+            sx={{ backgroundColor: theme.palette.custom.button1.background, color: theme.palette.custom.button1.color, '&:hover': { backgroundColor: theme.palette.custom.button1.background } }}
+          >
+            Show Instructions
+          </Button>
         </Grid>
       </Grid>
     </Box>
