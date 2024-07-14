@@ -28,27 +28,39 @@ The application is divided into three sections:
 2. **Main App View:** Manage folders, add new folders, and rename them.
 3. **Settings Panel:** Configure application settings, including dark mode, automatic file opening, and naming schemes.
 
-### Screenshots
+<p align="center">
+  <img src="images/Start_View.png" alt="Start View" width="300">
+</p>
+*Start View of Application*
 
-![Start View](images/Start_View.png)
-*Star View of Application*
-
-![Dark View](images/Main_View_DarkMode.png)
+<p align="center">
+  <img src="images/Main_View_DarkMode.png" alt="Dark View" width="300">
+</p>
 *Main App View Dark*
 
-![Main View Small](images/Small_Screen_Size.png)
+<p align="center">
+  <img src="images/Small_Screen_Size.png" alt="Main View Small" width="300">
+</p>
 *Main View for small screen sizes*
 
-![Folder Selector](images/Folder_Item_Selector.png)
+<p align="center">
+  <img src="images/Folder_Item_Selector.png" alt="Folder Selector" width="300">
+</p>
 *Multi Select Folders/Files*
 
-![Items Selected](images/Items_Selected.png)
+<p align="center">
+  <img src="images/Items_Selected.png" alt="Items Selected" width="300">
+</p>
 *Main View after items are selected*
 
-![Deposit Folder Naming](images/Deposit_Folder_Naming.png)
+<p align="center">
+  <img src="images/Deposit_Folder_Naming.png" alt="Deposit Folder Naming" width="300">
+</p>
 *Naming of deposit sample folder*
 
-![Sucessful Blinding](images/Sucessful_Blinding.png)
+<p align="center">
+  <img src="images/Sucessful_Blinding.png" alt="Sucessful Blinding" width="300">
+</p>
 *Success message once files have been Blinded*
 
 ## 3. Problems Encountered and Fixes
