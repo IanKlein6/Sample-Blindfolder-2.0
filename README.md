@@ -30,14 +30,26 @@ The application is divided into three sections:
 
 ### Screenshots
 
-![Start View](path/to/screenshot1.png)
-*Caption for App Selector*
+![Start View](images/Start_View.png)
+*Star View of Application*
 
-![Main App View](path/to/screenshot2.png)
-*Caption for Main App View*
+![Dark View](images/Main_View_DarkMode.png)
+*Main App View Dark*
 
-![Settings Panel](path/to/screenshot3.png)
-*Caption for Settings Panel*
+![Main View Small] (images/Small_Screen_Size.png)
+*Main View for small screen sizes*
+
+![Folder Selector] (images/Folder_Item_Selector.png)
+*Multi Select Folders/Files*
+
+![Items Selected] (images/Items_Selected.png)
+*Main View after items are selected*
+
+![Deposit Folder Naming] (images/Deposit_Folder_Naming.png)
+*Naming of deposit sample folder*
+
+![Sucessful Blinding] (images/Sucessful_Blinding.png)
+*Success message once files have been Blinded*
 
 ## 3. Problems Encountered and Fixes
 
