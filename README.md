@@ -83,4 +83,4 @@ Sample BlindFolder 2.0 is a robust, user-friendly application designed to enhanc
 
 **Acknowledgments**
 
-Special thanks to Jost Wiggering for the conceptual collaboration and to the University of Freiburg for supporting this project.
+Special thanks to Jost Wiggering for the collaboration.
