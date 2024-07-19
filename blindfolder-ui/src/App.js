@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState, useMemo, useEffect } from 'react';
 import { CssBaseline, Grid, Paper, CircularProgress, Backdrop, ThemeProvider } from '@mui/material';
 import AppSelector from './components/AppSelector';
@@ -7,6 +6,7 @@ import SettingsPanel from './components/SettingsPanel';
 import FolderNameModal from './components/FolderNameModal';
 import InstructionsModal from './components/InstructionsModal';
 import { lightTheme, darkTheme } from './theme';
+import LanguageSwitcher from './components/LanguageSwitcher'; // Ensure this is used
 
 const { ipcRenderer } = window.require('electron');
 
