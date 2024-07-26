@@ -1,47 +1,13 @@
-// blindfolder-ui/public/electron.js
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
-const ExcelJS = require('exceljs');
+const ExcelJS = require('exceljs'); // Ensure this line works correctly after installing the module
 const { exec } = require('child_process');
 const { promisify } = require('util');
 const execAsync = promisify(exec);
 const isDev = require('electron-is-dev');
 
-let mainWindow;
-
-function createWindow() {
-  mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-
-  mainWindow.loadURL(
-    isDev
-      ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '../build/index.html')}`
-  );
-
-  mainWindow.on('closed', () => (mainWindow = null));
-}
-
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
+let mainWindow; // Ensure mainWindow is defined and accessible
 
 ipcMain.handle('select-folders', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {

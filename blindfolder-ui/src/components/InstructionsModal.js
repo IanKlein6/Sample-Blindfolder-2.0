@@ -23,26 +23,32 @@ function InstructionsModal({ open, onClose }) {
           <Typography variant="h6" gutterBottom>Main Sections</Typography>
           <Typography paragraph>
             The application is divided into three main sections:
-            <br/>
-            1. <strong>App Selector</strong>: Choose the specific blinding application you want to use.
-            <br/>
-            2. <strong>Main App View</strong>: 
-            <ul>
-              <li><strong>Add Folders</strong>: Click the "Add Folder" button to select multiple folders for blinding.</li>
-              <li><strong>Rename</strong>: Click the "Rename" button to start the blinding process.</li>
-              <li><strong>Remove Folder</strong>: Click the "Remove" button next to a folder to remove it from the list.</li>
-            </ul>
-            3. <strong>Settings Panel</strong>:
-            <ul>
-              <li><strong>Automatic File Opening</strong>: Toggle this switch to enable or disable automatic opening of files after processing.</li>
-              <li><strong>Automatic Naming Schemes</strong>: Toggle this switch to enable or disable automatic naming schemes.</li>
-              <li><strong>Naming Prefix</strong>: Enter a prefix for file names.</li>
-              <li><strong>File Format</strong>: Choose the file format (Excel or CSV) for exporting data.</li>
-              <li><strong>Dark Mode</strong>: Toggle this switch to enable or disable dark mode.</li>
-              <li><strong>Show Instructions on Startup</strong>: Toggle this switch to enable or disable the instructions popup on startup.</li>
-              <li><strong>Show Instructions Button</strong>: Click this button to display the instructions popup.</li>
-            </ul>
           </Typography>
+          <Box component="div" mb={2}>
+            <Typography component="div" paragraph>
+              1. <strong>App Selector</strong>: Choose the specific blinding application you want to use.
+            </Typography>
+            <Typography component="div" paragraph>
+              2. <strong>Main App View</strong>:
+              <ul>
+                <li><strong>Add Folders</strong>: Click the "Add Folder" button to select multiple folders for blinding.</li>
+                <li><strong>Rename</strong>: Click the "Rename" button to start the blinding process.</li>
+                <li><strong>Remove Folder</strong>: Click the "Remove" button next to a folder to remove it from the list.</li>
+              </ul>
+            </Typography>
+            <Typography component="div" paragraph>
+              3. <strong>Settings Panel</strong>:
+              <ul>
+                <li><strong>Automatic File Opening</strong>: Toggle this switch to enable or disable automatic opening of files after processing.</li>
+                <li><strong>Automatic Naming Schemes</strong>: Toggle this switch to enable or disable automatic naming schemes.</li>
+                <li><strong>Naming Prefix</strong>: Enter a prefix for file names.</li>
+                <li><strong>File Format</strong>: Choose the file format (Excel or CSV) for exporting data.</li>
+                <li><strong>Dark Mode</strong>: Toggle this switch to enable or disable dark mode.</li>
+                <li><strong>Show Instructions on Startup</strong>: Toggle this switch to enable or disable the instructions popup on startup.</li>
+                <li><strong>Show Instructions Button</strong>: Click this button to display the instructions popup.</li>
+              </ul>
+            </Typography>
+          </Box>
 
           <Typography variant="h6" gutterBottom>Blinding Process</Typography>
           <Typography paragraph>
