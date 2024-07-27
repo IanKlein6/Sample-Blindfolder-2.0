@@ -1,47 +1,39 @@
 {
   "name": "sample-blindfolder-2.0",
   "version": "2.0.0",
-  "description": "Sample BlindFolder 2.0 - Updated Electron-based app",
+  "description": "Sample BlindFolder 2.0 - Updated to Blindfolder 1.0",
+  "author": "Ian Klein <ianklein66@gmail.com>",
   "main": "main.js",
   "scripts": {
     "start": "concurrently \"npm run react-start\" \"npm run electron-start\"",
     "react-start": "npm start --prefix blindfolder-ui",
     "electron-start": "wait-on http://localhost:3000 && electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "build": "electron-builder"
+
   },
   "build": {
-    "appId": "com.example.sampleblindfolder",
-    "productName": "Sample BlindFolder",
+    "appId": "com.sampleblindfolder.v2",
+    "productName": "Sample BlindFolder 2.0",
+    "files": [
+      "main.js",
+      "electron.js",
+      "node_modules/**/*",
+      "blindfolder-ui/build/**/*"
+    ],
     "directories": {
       "buildResources": "assets"
     },
-    "files": [
-      "main.js",
-      "package.json",
-      "node_modules/**",
-      "blindfolder-ui/build/**"
-    ],
-    "extraResources": [
-      {
-        "from": "assets/",
-        "to": "assets/",
-        "filter": [
-          "**/*"
-        ]
-      }
-    ],
     "win": {
       "target": "nsis",
-      "icon": "assets/icon.ico"
+      "icon": "icon_v1_Win/.ico"
     },
     "mac": {
       "target": "dmg",
-      "icon": "assets/icon.icns"
+      "icon": "assets/icon_v1_Mac.icns"
     },
     "linux": {
       "target": "AppImage",
-      "icon": "assets/icon.png"
+      "icon": "assets/icon_v1_linux.png"
     }
   },
   "devDependencies": {
@@ -52,7 +44,7 @@
     "@babel/preset-env": "^7.24.8",
     "concurrently": "^6.2.1",
     "electron": "^23.0.0",
-    "electron-builder": "^23.0.0",
+    "electron-builder": "^23.6.0",
     "wait-on": "^6.0.0"
   },
   "dependencies": {

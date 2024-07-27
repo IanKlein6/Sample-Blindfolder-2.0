@@ -5,8 +5,10 @@ const isDev = require('electron-is-dev');
 // Include the electron.js file where IPC handlers are defined
 require('./electron'); // Adjust the path if electron.js is in a different directory
 
+let mainWindow;
+
 function createWindow() {
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -15,28 +17,44 @@ function createWindow() {
     },
   });
 
-  win.loadURL(
-    isDev
-      ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, 'blindfolder-ui/build/index.html')}`
-  );
+  const startUrl = isDev
+    ? 'http://localhost:3000'
+    : `file://${path.join(__dirname, 'blindfolder-ui/build/index.html')}`;
+
+  console.log('Loading URL:', startUrl);
+  mainWindow.loadURL(startUrl);
 
   if (isDev) {
-    win.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
   }
 
-  // Set Content Security Policy
-  win.webContents.session.webRequest.onHeadersReceived((details, callback) => {
-    callback({
-      responseHeaders: {
-        ...details.responseHeaders,
-        'Content-Security-Policy': ["default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'"]
-      }
-    });
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    console.error(`Failed to load: ${errorDescription} (Code: ${errorCode})`);
   });
+
+  mainWindow.webContents.on('crashed', (event) => {
+    console.error('The webContents has crashed:', event);
+  });
+
+  mainWindow.webContents.on('unresponsive', () => {
+    console.warn('The webContents is unresponsive');
+  });
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    console.log('Finished loading');
+  });
+
+  mainWindow.webContents.on('console-message', (event, level, message, line, sourceId) => {
+    console.log(`Console message: ${message} (level: ${level}, line: ${line}, source: ${sourceId})`);
+  });
+
+  mainWindow.on('closed', () => (mainWindow = null));
 }
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+  mainWindow.webContents.openDevTools({ mode: 'detach' });
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
