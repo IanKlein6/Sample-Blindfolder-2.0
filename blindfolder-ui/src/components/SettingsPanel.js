@@ -18,21 +18,6 @@ function SettingsPanel({ settings, setSettings, onShowInstructions }) {
       <Typography variant="h6" gutterBottom align="center">
         Settings
       </Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Switch checked={settings.autoOpen} onChange={handleChange} name="autoOpen" />}
-            label={<Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>Auto Open</Typography>}
-            sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Switch checked={settings.autoName} onChange={handleChange} name="autoName" />}
-            label={<Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>Auto Name</Typography>}
-            sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}
-          />
-        </Grid>
         <Grid item xs={12}>
           <TextField
             label="Naming Prefix"
@@ -59,6 +44,14 @@ function SettingsPanel({ settings, setSettings, onShowInstructions }) {
             </Select>
           </FormControl>
         </Grid>
+        <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={<Switch checked={settings.autoOpen} onChange={handleChange} name="autoOpen" />}
+            label={<Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>Auto Open Folder</Typography>}
+            sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}
+          />
+        </Grid>
         <Grid item xs={12}>
           <FormControlLabel
             control={<Switch checked={settings.darkMode} onChange={handleChange} name="darkMode" />}
@@ -69,7 +62,7 @@ function SettingsPanel({ settings, setSettings, onShowInstructions }) {
         <Grid item xs={12}>
           <FormControlLabel
             control={<Switch checked={settings.showInstructions} onChange={handleChange} name="showInstructions" />}
-            label={<Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>Show Instructions</Typography>}
+            label={<Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>Show Instructions on Startup</Typography>}
             sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}
           />
         </Grid>
@@ -77,7 +70,7 @@ function SettingsPanel({ settings, setSettings, onShowInstructions }) {
           <Button
             variant="contained"
             onClick={onShowInstructions}
-            sx={{ backgroundColor: theme.palette.custom.button1.background, color: theme.palette.custom.button1.color, '&:hover': { backgroundColor: theme.palette.custom.button1.background } }}
+            sx={{ backgroundColor: theme.palette.custom.button1.background, color: theme.palette.custom.button1.color, '&:hover': { backgroundColor: theme.palette.custom.button2.background } }}
           >
             Show Instructions
           </Button>
