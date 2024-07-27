@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-const skypePalette = {
+const lightMode = {
   primary: {
     main: '#00aff0',
   },
@@ -17,6 +17,7 @@ const skypePalette = {
     primary: '#1c1c1c',
     secondary: '#595959',
   },
+  // Custom Button
   custom: {
     button1: {
       background: '#0078d7',
@@ -24,12 +25,12 @@ const skypePalette = {
     },
     button2: {
       background: '#00aff0',
-      color: '#ffffff',
+      color: '#23272a',
     },
   },
 };
 
-const discordPalette = {
+const darkMode = {
   primary: {
     main: '#7289da',
   },
@@ -46,14 +47,15 @@ const discordPalette = {
     primary: '#ffffff',
     secondary: '#b9bbbe',
   },
+  // Custom Button
   custom: {
     button1: {
       background: '#7289da',
       color: '#ffffff',
     },
     button2: {
-      background: '#99aab5',
-      color: '#23272a',
+      background: '#2b5464',
+      color: '#ffffff',
     },
   },
 };
@@ -61,14 +63,14 @@ const discordPalette = {
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
-    ...skypePalette,
+    ...lightMode,
   },
 });
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    ...discordPalette,
+    ...darkMode,
   },
 });
 
