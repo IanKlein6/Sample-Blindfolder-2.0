@@ -8,7 +8,10 @@
     "start": "concurrently \"npm run react-start\" \"npm run electron-start\"",
     "react-start": "npm start --prefix blindfolder-ui",
     "electron-start": "wait-on http://localhost:3000 && electron .",
-    "build": "electron-builder"
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win",
+    "build:linux": "electron-builder --linux",
+    "build:all": "electron-builder --mac --win --linux"
 
   },
   "build": {
