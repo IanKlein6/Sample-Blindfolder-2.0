@@ -51,10 +51,11 @@ function createWindow() {
   mainWindow.on('closed', () => (mainWindow = null));
 }
 
-app.on('ready', () => {
-  createWindow();
-  mainWindow.webContents.openDevTools({ mode: 'detach' });
-});
+//Opens Dev Window for Debug
+// app.on('ready', () => {
+//   createWindow();
+//   mainWindow.webContents.openDevTools({ mode: 'detach' });
+// });
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
