@@ -130,7 +130,10 @@ function App() {
       <InstructionsModal
         open={isInstructionsOpen}
         onClose={handleCloseInstructions}
-        onDisable={() => setSettings({ ...settings, showInstructions: false })}
+        onDisable={() => {
+          setSettings({ ...settings, showInstructions: false });
+          localStorage.setItem('disableInstructions', 'true');
+        }}
       />
       <Backdrop style={{ zIndex: 1301 }} open={isProcessing}>
         <CircularProgress color="inherit" />

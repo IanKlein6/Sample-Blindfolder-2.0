@@ -73,6 +73,8 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
 
     console.log('Rename data:', renameData);
 
+    const logFilename = `@{prefix}_Blindfolder_log`;
+
     if (settings.fileFormat === 'xlsx') {
       const workbook = new ExcelJS.Workbook();
       const sortedByBlind = workbook.addWorksheet('Sorted by Blind Samples');
@@ -86,13 +88,13 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
       sortedByOriginal.addRow(['Original Samples', 'Blind Samples']);
       renameData.forEach(data => sortedByOriginal.addRow([data['Original Samples'], data['Blind Samples']]));
 
-      const excelFilename = path.join(outputFolder, 'Blindfold_log.xlsx');
+      const excelFilename = path.join(outputFolder, `${logFilename}.xlsx`);
       await workbook.xlsx.writeFile(excelFilename);
       console.log('Excel file created at:', excelFilename);
       return excelFilename;
     } else if (settings.fileFormat === 'csv') {
       const csvContent = renameData.map(data => `${data['Original Samples']},${data['Blind Samples']}`).join('\n');
-      const csvFilename = path.join(outputFolder, 'Blindfold_log.csv');
+      const csvFilename = path.join(outputFolder, `${logFilename}.csv`);
       fs.writeFileSync(csvFilename, csvContent);
       console.log('CSV file created at:', csvFilename);
       return csvFilename;
