@@ -1,4 +1,3 @@
-// src/components/InstructionsModal.js
 import React from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, Box } from '@mui/material';
 
@@ -39,10 +38,9 @@ function InstructionsModal({ open, onClose }) {
             <Typography component="div" paragraph>
               3. <strong>Settings Panel</strong>:
               <ul>
-                <li><strong>Automatic File Opening</strong>: Toggle this switch to enable or disable automatic opening of files after processing.</li>
-                <li><strong>Automatic Naming Schemes</strong>: Toggle this switch to enable or disable automatic naming schemes.</li>
                 <li><strong>Naming Prefix</strong>: Enter a prefix for file names.</li>
                 <li><strong>File Format</strong>: Choose the file format (Excel or CSV) for exporting data.</li>
+                <li><strong>Automatic File Opening</strong>: Toggle this switch to enable or disable automatic opening of files after processing.</li>
                 <li><strong>Dark Mode</strong>: Toggle this switch to enable or disable dark mode.</li>
                 <li><strong>Show Instructions on Startup</strong>: Toggle this switch to enable or disable the instructions popup on startup.</li>
                 <li><strong>Show Instructions Button</strong>: Click this button to display the instructions popup.</li>
@@ -73,6 +71,16 @@ function InstructionsModal({ open, onClose }) {
             Sample BlindFolder 2.0 is designed to streamline the blinding process, making it faster and more efficient. With its user-friendly interface and customizable settings, it aims to enhance your workflow and reduce bias in data analysis.
             <br/>
             Enjoy using Sample BlindFolder 2.0!
+          </Typography>
+
+          <Typography variant="h6" gutterBottom>Creators</Typography>
+          <Typography paragraph>
+            This application was developed in collaboration between Ian Klein (Software Developer), Jost Wiggering (Doctoral Student) and the department of Nephrology at the University of Freiburg.
+          </Typography>
+
+          <Typography variant="h6" gutterBottom>Copyright</Typography>
+          <Typography paragraph>
+            All Rights Reserved by Ian Klein and Jost Wiggering.
           </Typography>
         </Box>
       </DialogContent>
