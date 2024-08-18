@@ -8,10 +8,11 @@ import FolderNameModal from './components/FolderNameModal';
 import InstructionsModal from './components/InstructionsModal';
 import { lightTheme, darkTheme } from './theme';
 
+
 const { ipcRenderer } = window.require('electron');
 
 function App() {
-  const [selectedApp, setSelectedApp] = useState('Sample Blindfolder');
+  const [selectedApp, setSelectedApp] = useState('');
   const [settings, setSettings] = useState({
     autoOpen: false,
     autoName: false,

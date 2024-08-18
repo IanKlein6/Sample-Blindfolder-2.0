@@ -1,15 +1,16 @@
 // src/components/MainAppView.js
 import React from 'react';
 import { Box, Button, Typography, useTheme } from '@mui/material';
+import SampleBlindfolderLogo from '../assets/Blindfolder_logo.png';
 
 function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFolder }) {
   const theme = useTheme();
 
   return (
     <Box sx={{ padding: 5, backgroundColor: 'background.paperlight', height: '100%' }}>
-      <Typography variant="h4" gutterBottom align="center">
-        {selectedApp}
-      </Typography>
+      <Box sx={{ textAlign: 'center', marginBottom: 4 }}>
+        <img src={SampleBlindfolderLogo} alt="Blindfolder Logo" style={{ width: '400px', height: 'auto' }} />
+      </Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
         <Button
           variant="contained"
