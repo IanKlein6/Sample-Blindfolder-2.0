@@ -103,7 +103,7 @@ function App() {
       <Grid container sx={{ height: '100vh' }}>
         <Grid item xs={12} md={3} sx={{ borderRight: '1px solid', borderColor: 'divider', padding: 0 }}>
           <Paper sx={{ height: '100%', padding: 2, backgroundColor: 'background.paperdark' }}>
-            <AppSelector selectedApp={selectedApp} setSelectedApp={setSelectedApp} />
+            <AppSelector selectedApp={selectedApp} setSelectedApp={setSelectedApp} settings={settings}/>
           </Paper>
         </Grid>
         <Grid item xs={12} md={6} sx={{ borderRight: '1px solid', borderColor: 'divider', padding: 0 }}>
@@ -114,6 +114,7 @@ function App() {
               onAddFolder={handleAddFolder}
               onRename={handleRename}
               onRemoveFolder={handleRemoveFolder}
+              settings={settings}
             />
           </Paper>
         </Grid>

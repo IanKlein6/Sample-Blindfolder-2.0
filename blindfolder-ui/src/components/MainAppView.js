@@ -1,15 +1,18 @@
 // src/components/MainAppView.js
 import React from 'react';
 import { Box, Button, Typography, useTheme } from '@mui/material';
-import SampleBlindfolderLogo from '../assets/Blindfolder_logo.png';
+import DarkLogo from '../assets/Blindfolder_logo.png';
+import LightLogo from '../assets/Blindfolder_logo.png' // change this to light logo when ready
 
-function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFolder }) {
+function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFolder, settings }) {
   const theme = useTheme();
+
+  const logoDisplay = settings.darkMode ? DarkLogo : LightLogo;
 
   return (
     <Box sx={{ padding: 5, backgroundColor: 'background.paperlight', height: '100%' }}>
       <Box sx={{ textAlign: 'center', marginBottom: 4 }}>
-        <img src={SampleBlindfolderLogo} alt="Blindfolder Logo" style={{ width: '400px', height: 'auto' }} />
+        <img src={logoDisplay} alt="Blindfolder Logo" style={{ width: '80%', height: 'auto' }} />
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
         <Button
