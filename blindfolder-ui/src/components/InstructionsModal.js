@@ -80,7 +80,7 @@ function InstructionsModal({ open, onClose }) {
 
           <Typography variant="h6" gutterBottom>Copyright</Typography>
           <Typography paragraph>
-            All Rights Reserved by Ian Klein and Jost Wiggering.
+          © 2024 Blindfolder, All Rights Reserved by Ian Klein and Jost Wiggering.
           </Typography>
         </Box>
       </DialogContent>
