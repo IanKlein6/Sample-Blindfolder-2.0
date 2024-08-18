@@ -4,7 +4,6 @@ import IconDark from '../assets/Blindfolder_icon.png';
 import IconLight from '../assets/Blindfolder_icon_w.png';
 
 function AppSelector({ selectedApp, setSelectedApp, settings = {} }) {
-  console.log(settings);
   const theme = useTheme();
 
   const apps = [

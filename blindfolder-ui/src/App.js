@@ -12,28 +12,35 @@ import { lightTheme, darkTheme } from './theme';
 const { ipcRenderer } = window.require('electron');
 
 function App() {
+
+  const loadSettings = () => {
+    const savedSettings = localStorage.getItem('appSettings');
+    return savedSettings
+    ? JSON.parse(savedSettings)
+    : {
+      autoOpen: false,
+      autoName: false,
+      namingPrefix: '',
+      fileFormat: 'xlsx',
+      darkMode: false,
+      showInstructions: true,
+      };
+  };
   const [selectedApp, setSelectedApp] = useState('');
-  const [settings, setSettings] = useState({
-    autoOpen: false,
-    autoName: false,
-    namingPrefix: '',
-    fileFormat: 'xlsx',
-    darkMode: false,
-    showInstructions: true,
-  });
+  const [settings, setSettings] = useState(loadSettings());
   const [folders, setFolders] = useState([]);
   const [destinationFolder, setDestinationFolder] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
+  const [isInstructionsOpen, setIsInstructionsOpen] = useState(settings.showInstructions);
 
   const theme = useMemo(() => (settings.darkMode ? darkTheme : lightTheme), [settings.darkMode]);
 
   useEffect(() => {
-    if (!localStorage.getItem('disableInstructions')) {
-      setIsInstructionsOpen(true);
-    }
-  }, []);
+    localStorage.setItem('appSettings', JSON.stringify(settings));
+  }, [settings]);
+
+  
 
   const handleAddFolder = async () => {
     const selectedFolders = await ipcRenderer.invoke('select-folders');
