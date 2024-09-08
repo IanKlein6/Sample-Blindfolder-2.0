@@ -1,23 +1,24 @@
 import { createTheme } from '@mui/material/styles';
 
+// Light Mode Color Palette
 const lightMode = {
   primary: {
-    main: '#00aff0',
+    main: '#00aff0', // Primary color (used for buttons, highlights)
   },
   secondary: {
-    main: '#0078d7',
+    main: '#0078d7', // Secondary color (used for accents)
   },
   background: {
-    default: '#ffffff',
-    paper: '#f0f0f0',
-    paperdark: '#e4eef2',
-    paperlight: '#ffffff',
+    default: '#ffffff', // Default background color
+    paper: '#f0f0f0',   // Paper background color
+    paperdark: '#e4eef2', // Darker paper color for contrast
+    paperlight: '#ffffff', // Light paper color for UI components
   },
   text: {
-    primary: '#1c1c1c',
-    secondary: '#595959',
+    primary: '#1c1c1c', // Main text color
+    secondary: '#595959', // Secondary text color (used for subtitles, hints)
   },
-  // Custom Button
+  // Custom button styles for the light theme
   custom: {
     button2: {
       background: '#0078d7',
@@ -30,47 +31,50 @@ const lightMode = {
   },
 };
 
+// Dark Mode Color Palette
 const darkMode = {
   primary: {
-    main: '#7289da',
+    main: '#7289da', // Primary color for dark mode
   },
   secondary: {
-    main: '#99aab5',
+    main: '#99aab5', // Secondary color for dark mode
   },
   background: {
-    default: '#2c2f33',
-    paper: '#23272a',
-    paperdark: '#2b5464',
-    paperlight: '#2c2f33',
+    default: '#2c2f33', // Default background color in dark mode
+    paper: '#23272a',   // Paper background for UI elements
+    paperdark: '#2b5464', // Darker paper color for contrast in dark mode
+    paperlight: '#2c2f33', // Light paper color for specific elements
   },
   text: {
-    primary: '#ffffff',
-    secondary: '#b9bbbe',
+    primary: '#ffffff', // Main text color in dark mode (white)
+    secondary: '#b9bbbe', // Secondary text color (grayish)
   },
-  // Custom Button
+  // Custom button styles for the dark theme
   custom: {
     button1: {
       background: '#7289da',
-      color: '#ffffff',
+      color: '#ffffff', // White text on buttons
     },
     button2: {
       background: '#2b5464',
-      color: '#ffffff',
+      color: '#ffffff', // White text on buttons
     },
   },
 };
 
+// Create light theme using MUI's createTheme function
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
-    ...lightMode,
+    ...lightMode,  
   },
 });
 
+// Create dark theme using MUI's createTheme function
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
-    ...darkMode,
+    mode: 'dark', 
+    ...darkMode,   
   },
 });
 

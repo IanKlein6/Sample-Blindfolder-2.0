@@ -48,7 +48,7 @@ The application is divided into three sections:
 ![Deposit Folder Naming](images/Deposit_Folder_Naming.png)
 *Naming of deposit sample folder*
 
-![Sucessful Blinding](images/Sucessful_Blinding.png)
+![Successful Blinding](images/Sucessful_Blinding.png)
 *Success message once files have been Blinded*
 
 ## 3. Problems Encountered and Fixes
