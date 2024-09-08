@@ -1,7 +1,7 @@
 {
   "name": "sample-blindfolder-2.0",
   "version": "2.0.0",
-  "description": "Sample BlindFolder 2.0 - Updated to Blindfolder 1.0",
+  "description": "BlindFolder 2.0 - Updated to Blindfolder 1.0",
   "author": "Ian Klein <ianklein66@gmail.com>",
   "main": "main.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "build": {
     "appId": "com.sampleblindfolder.v2",
-    "productName": "Sample BlindFolder 2.0",
+    "productName": "BlindFolder 2.0",
     "files": [
       "main.js",
       "electron.js",
@@ -29,15 +29,15 @@
     },
     "win": {
       "target": "nsis",
-      "icon": "blindfolder-ui/src/assets/Blindfolder_icon.png"
+      "icon": "images/icon_v1_Win.ico"
     },
     "mac": {
       "target": "dmg",
-      "icon": "blindfolder-ui/src/assets/Blindfolder_icon.png"
+      "icon": "images/icon_v1_Mac.icns" 
     },
     "linux": {
       "target": "AppImage",
-      "icon": "blindfolder-ui/src/assets/Blindfolder_icon.png"
+      "icon": "images/icon_v1_linux.png" 
     }
   },
   "devDependencies": {

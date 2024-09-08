@@ -104,9 +104,8 @@ The BlindFolder project is an Electron-based application with a React frontend. 
 
 ### Future Enhancements
 
-1. **Advanced Error Handling**: Improve error reporting and logging.
-2. **Performance Optimization**: Optimize React components for better performance.
-3. **Feature Expansion**: Add more customization options and support for additional file formats.
-4. **User Feedback**: Incorporate feedback to further refine the UI and UX.
+1. create version thats installable and connects to the internet
+2. auto updates
+3. user analytics
 
 This comprehensive approach ensured a robust, user-friendly, and customizable application while addressing and overcoming development challenges effectively.
