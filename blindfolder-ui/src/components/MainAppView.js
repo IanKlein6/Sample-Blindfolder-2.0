@@ -2,12 +2,12 @@
 import React from 'react';
 import { Box, Button, Typography, useTheme } from '@mui/material';
 import DarkLogo from '../assets/Blindfolder_logo.png';
-import LightLogo from '../assets/Blindfolder_logo.png' // change this to light logo when ready
+import LightLogo from '../assets/Blindfolder_logo_white_2.png' 
 
 function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFolder, settings }) {
   const theme = useTheme();
 
-  const logoDisplay = settings.darkMode ? DarkLogo : LightLogo;
+  const logoDisplay = settings.darkMode ? LightLogo : DarkLogo;
 
   return (
     <Box sx={{ padding: 5, backgroundColor: 'background.paperlight', height: '100%' }}>
@@ -25,7 +25,7 @@ function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFold
         <Button
           variant="contained"
           onClick={onRename}
-          sx={{ backgroundColor: theme.palette.custom.button2.background, color: theme.palette.custom.button2.fontcolor, '&:hover': { backgroundColor: theme.palette.custom.button1.background } }}
+          sx={{ backgroundColor: theme.palette.custom.button1.background, color: theme.palette.custom.button1.fontcolor, '&:hover': { backgroundColor: theme.palette.custom.button2.background } }}
         >
           Rename
         </Button>
@@ -39,7 +39,7 @@ function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFold
             <Button
               variant="outlined"
               onClick={() => onRemoveFolder(index)}
-              sx={{ borderColor: theme.palette.custom.button2.background, color: theme.palette.custom.button2.color, borderWidth: 2, '&:hover': { borderColor: theme.palette.custom.button1.background, color: theme.palette.custom.button2.color, borderWidth: 2, } }}
+              sx={{ borderColor: theme.palette.custom.button1.background, color: theme.palette.custom.button1.color, borderWidth: 2, '&:hover': { borderColor: theme.palette.custom.button2.background, color: theme.palette.custom.button2.color, borderWidth: 2, } }}
             >
               Remove
             </Button>

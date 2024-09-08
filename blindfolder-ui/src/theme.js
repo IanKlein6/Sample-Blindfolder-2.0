@@ -19,11 +19,11 @@ const lightMode = {
   },
   // Custom Button
   custom: {
-    button1: {
+    button2: {
       background: '#0078d7',
       color: '#23272a',
     },
-    button2: {
+    button1: {
       background: '#00aff0',
       color: '#23272a',
     },

@@ -25,14 +25,21 @@ function AppSelector({ selectedApp, setSelectedApp, settings = {} }) {
         {apps.map(app => (
           <ListItem 
             button 
-            selected={selectedApp === app.imagePath} 
+            selected={selectedApp === app.name} 
             onClick={() => setSelectedApp(app.name)} 
             key={app.name}
             sx={{
-              border: selectedApp === app.name 
-              ? `1px solid ${theme.palette.primary.main}` 
-              : `1px solid transparent`, 
-              borderRadius: '4px', 
+              backgroundColor: theme.palette.primary.main,  // Default background color
+              borderRadius: '3px',  // Rounded corners
+              transition: 'background-color 0.3s, border 0.3s',  // Smooth transition for hover/selection
+              '&:hover': {
+                backgroundColor: theme.palette.custom.button2.background,  // Brighter on hover
+              },
+              '&.Mui-selected': {
+                backgroundColor: theme.palette.primary.light,  // Brighter on selection
+                border: `2px solid ${theme.palette.custom.button2.background}`,  // Add border when selected
+           
+              },  
             }}
           >
             <ListItemIcon>
@@ -44,7 +51,10 @@ function AppSelector({ selectedApp, setSelectedApp, settings = {} }) {
       </List>
       <Box sx={{ mt:'auto', paddings: 2, textAlign: 'center', AlignbackgroundColor: theme.palette.background.paper }}>
         <Typography variant="body2" color="textSeconday">
-        © 2024 Blindfolder, All Rights Reserved by Ian Klein and Jost Wiggering.
+        © 2024 Blindfolder 2.0, All Rights Reserved by 
+        </Typography>
+        <Typography variant="body2" color="textSeconday">
+        Ian Klein and Jost Wiggering.
         </Typography>
       </Box>
     </Box>    

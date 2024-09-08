@@ -14,7 +14,7 @@ function SettingsPanel({ settings, setSettings, onShowInstructions }) {
   };
 
   return (
-    <Box sx={{ padding: 2, backgroundColor: 'background.paper', borderRadius: 1 }}>
+    <Box sx={{ padding: 2, backgroundColor: 'background.paper', borderRadius: 2 }}>
       <Typography variant="h6" gutterBottom align="center">
         Settings
       </Typography>

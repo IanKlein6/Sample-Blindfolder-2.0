@@ -12,8 +12,8 @@
     "build:mac": "electron-builder --mac",
     "build:win": "electron-builder --win",
     "build:linux": "electron-builder --linux",
-    "build:all": "electron-builder --mac --win --linux"
-
+    "build:all": "electron-builder --mac --win --linux",
+    "electron-pack": "electron-builder"
   },
   "build": {
     "appId": "com.sampleblindfolder.v2",
@@ -46,8 +46,9 @@
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/preset-env": "^7.24.8",
+    "@svgr/webpack": "^8.1.0",
     "concurrently": "^6.2.1",
-    "electron": "^23.0.0",
+    "electron": "^23.3.13",
     "electron-builder": "^23.6.0",
     "wait-on": "^6.0.0"
   },
