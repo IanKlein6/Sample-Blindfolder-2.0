@@ -7,6 +7,8 @@ const { promisify } = require('util');
 const execAsync = promisify(exec);
 const isDev = require('electron-is-dev');
 
+console.log("Created by Ian Klein and Jost Wiggering - Sample BlindFolder 2.0");
+
 let mainWindow; // Ensure mainWindow is defined and accessible
 
 ipcMain.handle('select-folders', async () => {
