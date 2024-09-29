@@ -1,13 +1,13 @@
 import React from 'react';
 import { List, ListItem, ListItemText, ListItemIcon, useTheme, Typography, Box } from '@mui/material';
-import IconDark from '../assets/Blindfolder_icon.png';  
-import IconLight from '../assets/Blindfolder_icon_w.png';
+import IconDark from '../assets/Test_logo.png';  // switch back to original icon dark
+import IconLight from '../assets/Test_logo.png'; // switch back to original icon light
 
 function AppSelector({ selectedApp, setSelectedApp, settings = {} }) {
   const theme = useTheme(); 
   const apps = [
     {
-      name: 'Blindfolder', // App name
+      name: 'BlindFolder', // App name
       icon: (
         <img 
           src={settings.darkMode ? IconLight : IconDark}  // Switch icon based on dark mode
@@ -52,7 +52,7 @@ function AppSelector({ selectedApp, setSelectedApp, settings = {} }) {
       {/* Footer section */}
       <Box sx={{ mt: 'auto', padding: 2, textAlign: 'center', backgroundColor: theme.palette.background.paper }}>
         <Typography variant="body2" color="textSecondary">
-          © 2024 Blindfolder 2.0, All Rights Reserved by 
+          © 2024 BlindFolder 2.0, All Rights Reserved by 
         </Typography>
         <Typography variant="body2" color="textSecondary">
           Ian Klein and Jost Wiggering.

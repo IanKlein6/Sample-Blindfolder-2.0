@@ -10,7 +10,7 @@ function InstructionsModal({ open, onClose }) {
           {/* Overview Section */}
           <Typography variant="h6" gutterBottom>Overview</Typography>
           <Typography paragraph>
-            Sample BlindFolder 2.0 is an Electron-based application for automating the blinding of files generated through confocal microscopy of Drosophila cells. It offers a modern, user-friendly interface with customization options like dark mode and persistent settings.
+            BlindFolder 2.0 is an Electron-based application for automating the blinding of files generated through confocal microscopy of Drosophila cells. It offers a modern, user-friendly interface with customization options like dark mode and persistent settings.
           </Typography>
 
           {/* Getting Started Section */}
@@ -79,9 +79,9 @@ function InstructionsModal({ open, onClose }) {
           {/* Conclusion Section */}
           <Typography variant="h6" gutterBottom>Conclusion</Typography>
           <Typography paragraph>
-            Sample BlindFolder 2.0 is designed to streamline the blinding process, making it faster and more efficient. With its user-friendly interface and customizable settings, it aims to enhance your workflow and reduce bias in data analysis.
+            BlindFolder 2.0 is designed to streamline the blinding process, making it faster and more efficient. With its user-friendly interface and customizable settings, it aims to enhance your workflow and reduce bias in data analysis.
             <br/>
-            Enjoy using Sample BlindFolder 2.0!
+            Enjoy using BlindFolder 2.0!
           </Typography>
 
           {/* Creators Section */}

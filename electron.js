@@ -9,7 +9,7 @@ const execAsync = promisify(exec);
 const isDev = require('electron-is-dev');
 
 // Signature for code ownership
-console.log("Created by Ian Klein and Jost Wiggering - Sample BlindFolder 2.0");
+console.log("Created by Ian Klein and Jost Wiggering - BlindFolder 2.0");
 
 let mainWindow; 
 

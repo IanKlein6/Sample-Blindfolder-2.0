@@ -33,7 +33,7 @@
     },
     "mac": {
       "target": "dmg",
-      "icon": "images/icon_v1_Mac.icns" 
+      "icon": "blindfolder-ui/src/assets/mac/Test_logo_(2).icns" 
     },
     "linux": {
       "target": "AppImage",

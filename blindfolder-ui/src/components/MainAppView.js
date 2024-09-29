@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Typography, useTheme } from '@mui/material';
-import DarkLogo from '../assets/Blindfolder_logo.png'; // Logo for light mode
-import LightLogo from '../assets/Blindfolder_logo_white_2.png'; // Logo for dark mode
+import DarkLogo from '../assets/Test_logo.png'; // switch back to logo dark? // Logo for light mode
+import LightLogo from '../assets/Test_logo.png'; // switch back to logo light?  // Logo for dark mode
 
 function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFolder, settings }) {
   const theme = useTheme(); // Access current theme (light/dark mode)
