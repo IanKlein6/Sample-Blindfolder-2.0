@@ -90,6 +90,12 @@ function InstructionsModal({ open, onClose }) {
             This application was developed in collaboration between Ian Klein (Software Developer), Jost Wiggering (Doctoral Student), and the department of Nephrology at the University of Freiburg.
           </Typography>
 
+          {/* Donations Section */}
+          <Typography variant="h6" gutterBottom>Donations</Typography>
+          <Typography paragraph>
+            If you are receiving value from this application and wish to support its future development and creators, consider making a donation to help us continue improving and updating BlindFolder for everyone.
+          </Typography>
+
           {/* Copyright Section */}
           <Typography variant="h6" gutterBottom>Copyright</Typography>
           <Typography paragraph>

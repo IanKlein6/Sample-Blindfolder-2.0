@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, ListItem, ListItemText, ListItemIcon, useTheme, Typography, Box } from '@mui/material';
+import { List, ListItem, ListItemText, ListItemIcon, useTheme, Typography, Box, Button } from '@mui/material';
 import IconDark from '../assets/Test_logo.png';  // switch back to original icon dark
 import IconLight from '../assets/Test_logo.png'; // switch back to original icon light
 
@@ -57,6 +57,21 @@ function AppSelector({ selectedApp, setSelectedApp, settings = {} }) {
         <Typography variant="body2" color="textSecondary">
           Ian Klein and Jost Wiggering.
         </Typography>
+        <Button
+          variant="outlined"
+          onClick={() => {window.open("https://github.com/IanKlein6", "_blank");}}
+          sx={{ 
+            mt: 2,
+            borderWidth: '2px',
+            borderColor: theme.palette.custom.button1.background, 
+            color: theme.palette.custom.button1.color, 
+            '&:hover': { backgroundColor: theme.palette.custom.button2.background } 
+          }}
+          size="small"
+          fullWidth
+         >
+          Donations  
+        </Button>
       </Box>
     </Box>    
   );
