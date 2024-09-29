@@ -50,7 +50,7 @@ function AppSelector({ selectedApp, setSelectedApp, settings = {} }) {
       </List>
 
       {/* Footer section */}
-      <Box sx={{ mt: 'auto', padding: 2, textAlign: 'center', backgroundColor: theme.palette.background.paper }}>
+      <Box sx={{ mt: 'auto', padding: 2, borderRadius: '3px', textAlign: 'center', backgroundColor: theme.palette.background.paper }}>
         <Typography variant="body2" color="textSecondary">
           © 2024 BlindFolder 2.0, All Rights Reserved by 
         </Typography>
