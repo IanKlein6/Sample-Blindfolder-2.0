@@ -29,15 +29,15 @@
     },
     "win": {
       "target": "nsis",
-      "icon": "images/icon_v1_Win.ico"
+      "icon": "images/Blindfolder_icon.png"
     },
     "mac": {
       "target": "dmg",
-      "icon": "blindfolder-ui/src/assets/mac/Test_logo_(2).icns" 
+      "icon": "blindfolder-ui/src/assets/mac/Blindfolder_icon.png" 
     },
     "linux": {
       "target": "AppImage",
-      "icon": "images/icon_v1_linux.png" 
+      "icon": "images/Blindfolder_icon.png" 
     }
   },
   "devDependencies": {

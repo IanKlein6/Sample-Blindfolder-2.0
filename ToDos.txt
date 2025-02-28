@@ -1,0 +1,4 @@
+- change application icon image to Bindfolder_icon.png to a .icns file  under package.json
+- build windows application and test on windows
+- check with Jost about anything else that needs to be done
+- debate code certificates
