@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, ListItem, ListItemText, ListItemIcon, useTheme, Typography, Box, Button } from '@mui/material';
-import IconDark from '../assets/Test_logo.png';  // switch back to original icon dark
-import IconLight from '../assets/Test_logo.png'; // switch back to original icon light
+import IconDark from '../assets/Blindfolder_icon.png';  // switch back to original icon dark
+import IconLight from '../assets/Blindfolder_icon_w.png'; // switch back to original icon light
 
 function AppSelector({ selectedApp, setSelectedApp, settings = {} }) {
   const theme = useTheme(); 
@@ -59,7 +59,7 @@ function AppSelector({ selectedApp, setSelectedApp, settings = {} }) {
         </Typography>
         <Button
           variant="outlined"
-          onClick={() => {window.open("https://github.com/IanKlein6", "_blank");}}
+          onClick={() => {window.open("https://paypal.me/blindfolder", "_blank");}}
           sx={{ 
             mt: 2,
             borderWidth: '2px',
