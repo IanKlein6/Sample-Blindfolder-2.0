@@ -6,13 +6,13 @@
   "main": "main.js",
   "scripts": {
     "start": "concurrently \"npm run react-start\" \"npm run electron-start\"",
-    "build": "react-scripts build",
+    "build": "npm run build --prefix blindfolder-ui",
     "react-start": "npm start --prefix blindfolder-ui",
     "electron-start": "wait-on http://localhost:3000 && electron .",
     "build:mac": "electron-builder --mac",
     "build:win": "electron-builder --win",
     "build:linux": "electron-builder --linux",
-    "build:all": "electron-builder --mac --win --linux",
+    "build:all": "electron-builder --mac --win",
     "electron-pack": "electron-builder"
   },
   "build": {
@@ -29,15 +29,15 @@
     },
     "win": {
       "target": "nsis",
-      "icon": "images/Blindfolder_icon.png"
+      "icon": "images/Blindfolder_icon.ico"
     },
     "mac": {
       "target": "dmg",
-      "icon": "blindfolder-ui/src/assets/mac/Blindfolder_icon.png" 
+      "icon": "images/Blindfolder_icon.icns" 
     },
     "linux": {
       "target": "AppImage",
-      "icon": "images/Blindfolder_icon.png" 
+      "icon": "images/Blindfolder_icon_square.png" 
     }
   },
   "devDependencies": {

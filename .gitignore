@@ -1,5 +1,9 @@
 #Dependencies 
 node_modules
 
-# Build
-/dist
+# React build
+/blindfolder-ui/build/
+
+# Electron Builder output
+/dist/
+/mac_build

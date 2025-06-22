@@ -1,0 +1,7 @@
+cd /BlindFolder-3 
+    npm install 
+cd /BlindFolder-3/blindfolder-iu 
+    npm install 
+    npm build
+cd /cd /BlindFolder-3 
+    npm build (:mac or :win as needed)

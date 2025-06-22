@@ -11,9 +11,10 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800, 
     height: 600,
+    icon: path.join(__dirname, 'images', 'Blindfolder_icon_square.png'), // Update path if needed
     webPreferences: {
-      nodeIntegration: true,  // Enable Node.js integration in renderer. SET this to false in production for security
-      contextIsolation: false, // Disable context isolation for the renderer process. Switch to be enabled (true) for enhanced security
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
