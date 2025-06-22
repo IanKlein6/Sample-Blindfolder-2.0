@@ -6,9 +6,8 @@ import SettingsPanel from './components/SettingsPanel';
 import FolderNameModal from './components/FolderNameModal';
 import InstructionsModal from './components/InstructionsModal';
 import { lightTheme, darkTheme } from './theme';
+import { log, error } from './utils/logger';
 
-// Electron's ipcRenderer for communication between React and Electron
-const { ipcRenderer } = window.require('electron');
 
 function App() {
 
@@ -46,8 +45,8 @@ function App() {
 
   // Add selected folders from the user's file system
   const handleAddFolder = async () => {
-    const selectedFolders = await ipcRenderer.invoke('select-folders');
-    console.log('Selected folders:', selectedFolders);
+    const selectedFolders = await window.electronAPI.selectFolders();
+    log('Selected folders:', selectedFolders);
     setFolders([...folders, ...selectedFolders]);
   };
 
@@ -58,8 +57,8 @@ function App() {
       return;
     }
 
-    const selectedDestination = await ipcRenderer.invoke('select-destination');
-    console.log('Selected destination folder:', selectedDestination);
+    const selectedDestination = await window.electronAPI.selectDestination();
+    log('Selected destination folder:', selectedDestination);
     setDestinationFolder(selectedDestination);
 
     setIsModalOpen(true); // Open modal to ask for a new folder name
@@ -77,21 +76,21 @@ function App() {
 
     try {
       // Invoke Electron process to rename files in the folders
-      const excelFilePath = await ipcRenderer.invoke('process-folders', {
+      const excelFilePath = await window.electronAPI.processFolders({
         folders,
         destinationFolder,
         folderName,
         settings,
       });
-      console.log('Excel file created at:', excelFilePath);
+      log('Excel file created at:', excelFilePath);
       alert(`Renaming process complete. Log saved to ${excelFilePath}`);
 
       // Automatically open the destination folder if setting is enabled
       if (settings.autoOpen) {
-        await ipcRenderer.invoke('open-folder', destinationFolder);
+        await window.electronAPI.openFolder(destinationFolder);
       }
     } catch (error) {
-      console.error('Error processing folders:', error);
+      error('Error processing folders:', error);
       alert('An error occurred while processing the folders. Please try again.');
     } finally {
       setIsProcessing(false); // Hide processing indicator

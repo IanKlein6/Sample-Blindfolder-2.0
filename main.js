@@ -11,10 +11,12 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800, 
     height: 600,
-    icon: path.join(__dirname, 'images', 'Blindfolder_icon_square.png'), // Update path if needed
+    icon: path.join(__dirname, 'images', 'Blindfolder_icon_square.png'), // ✅ Update path if needed
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false
     },
   });
 
@@ -86,3 +88,12 @@ app.on('activate', () => {
 // });
 
 app.on('ready', createWindow); //created when the app is ready
+
+// Global error handling for main process
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Promise Rejection:', reason);
+});

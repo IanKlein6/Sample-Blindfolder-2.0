@@ -1,15 +1,13 @@
 // Electron and Node.js dependencies
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const ExcelJS = require('exceljs'); 
-const { exec } = require('child_process');
-const { promisify } = require('util');
-const execAsync = promisify(exec);
 const isDev = require('electron-is-dev');
+const { log, error } = require('./utils/logger');
 
 // Signature for code ownership
-console.log("Created by Ian Klein and Jost Wiggering - BlindFolder 2.0");
+log("Created by Ian Klein and Jost Wiggering - BlindFolder 2.0");
 
 let mainWindow; 
 
@@ -18,7 +16,7 @@ ipcMain.handle('select-folders', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory', 'multiSelections'],
   });
-  console.log('Selected folders:', result.filePaths);
+  log('Selected folders:', result.filePaths);
   return result.filePaths;
 });
 
@@ -27,7 +25,7 @@ ipcMain.handle('select-destination', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory'],
   });
-  console.log('Selected destination:', result.filePaths[0]);
+  log('Selected destination:', result.filePaths[0]);
   return result.filePaths[0];
 });
 
@@ -39,15 +37,15 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
 
   // Create the output folder path
   const outputFolder = path.join(destinationFolder, folderName);
-  console.log('Output folder:', outputFolder);
+  log('Output folder:', outputFolder);
   
   try {
     // Create the output folder if it doesn't exist
     if (!fs.existsSync(outputFolder)) {
       fs.mkdirSync(outputFolder);
-      console.log('Created output folder:', outputFolder);
+      log('Created output folder:', outputFolder);
     } else {
-      console.log('Output folder already exists:', outputFolder);
+      log('Output folder already exists:', outputFolder);
     }
 
     // Current date used for file naming
@@ -60,7 +58,7 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
       allFiles.push(...files);
     }
 
-    console.log('All files:', allFiles);
+    log('All files:', allFiles);
 
     // Shuffle files randomly
     shuffleArray(allFiles);
@@ -77,14 +75,14 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
 
       try {
         fs.copyFileSync(filePath, destinationPath);
-        console.log(`Copied file from ${filePath} to ${destinationPath}`);
+        log(`Copied file from ${filePath} to ${destinationPath}`);
         renameData.push({ 'Original Samples': fileName, 'Blind Samples': newFilename });
       } catch (err) {
-        console.error(`Failed to copy file ${filePath} to ${destinationPath}:`, err);
+        error(`Failed to copy file ${filePath} to ${destinationPath}:`, err);
       }
     }
 
-    console.log('Rename data:', renameData);
+    log('Rename data:', renameData);
 
     const logFilename = `${prefix}_Blindfolder_log`; // Filename for logs (without extension)
 
@@ -107,35 +105,33 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
       // Save as Excel file
       const excelFilename = path.join(outputFolder, `${logFilename}.xlsx`);
       await workbook.xlsx.writeFile(excelFilename);
-      console.log('Excel file created at:', excelFilename);
+      log('Excel file created at:', excelFilename);
       return excelFilename;
     } else if (settings.fileFormat === 'csv') {
       // Prepare CSV content and save as CSV file
       const csvContent = renameData.map(data => `${data['Original Samples']},${data['Blind Samples']}`).join('\n');
       const csvFilename = path.join(outputFolder, `${logFilename}.csv`);
       fs.writeFileSync(csvFilename, csvContent);
-      console.log('CSV file created at:', csvFilename);
+      log('CSV file created at:', csvFilename);
       return csvFilename;
     }
   } catch (error) {
-    console.error('Error processing folders:', error);
+    error('Error processing folders:', error);
     throw error;
   }
 });
 
 // Handler to open a folder in the system's file explorer
-ipcMain.handle('open-folder', async (event, folderPath) => {
+ipcMain.handle('open-folder', async (_event, folderPath) => {
   try {
-    if (process.platform === 'win32') {
-      exec(`start "" "${folderPath}"`);
-    } else if (process.platform === 'darwin') {
-      exec(`open "${folderPath}"`);
+    const result = await shell.openPath(folderPath);
+    if (result) {
+      error('Error opening folder:', result); // `result` contains the error message as a string
     } else {
-      exec(`xdg-open "${folderPath}"`);
+      log('Opened folder:', folderPath);
     }
-    console.log('Opened folder:', folderPath);
   } catch (err) {
-    console.error(`Failed to open folder ${folderPath}:`, err);
+    error('Exception while opening folder:', err);
   }
 });
 
