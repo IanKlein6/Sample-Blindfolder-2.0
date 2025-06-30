@@ -81,12 +81,121 @@ app.on('activate', () => {
   }
 });
 
+const { Menu, shell } = require('electron');
+
+const isMac = process.platform === 'darwin';
+
+const template = [
+  ...(isMac ? [{
+    label: app.name,
+    submenu: [
+      { role: 'about' },
+      { type: 'separator' },
+      { role: 'services' },
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  }] : []),
+  {
+    label: 'File',
+    submenu: [
+      {
+        label: 'Select Folder(s)',
+        accelerator: isMac ? 'Cmd+O' : 'Ctrl+O',
+        click: () => {
+          mainWindow.webContents.send('menu-select-folders');
+        }
+      },
+      {
+        label: 'Select Destination',
+        accelerator: isMac ? 'Cmd+D' : 'Ctrl+D',
+        click: () => {
+          mainWindow.webContents.send('menu-select-destination');
+        }
+      },
+      { type: 'separator' },
+      isMac ? { role: 'close' } : { role: 'quit' }
+    ]
+  },
+  {
+    label: 'Edit',
+    submenu: [
+      { role: 'undo' },
+      { role: 'redo' },
+      { type: 'separator' },
+      { role: 'cut' },
+      { role: 'copy' },
+      { role: 'paste' },
+      ...(isMac ? [
+        { role: 'pasteAndMatchStyle' },
+        { role: 'delete' },
+        { role: 'selectAll' }
+      ] : [
+        { role: 'delete' },
+        { type: 'separator' },
+        { role: 'selectAll' }
+      ])
+    ]
+  },
+  {
+    label: 'View',
+    submenu: [
+      { role: 'reload' },
+      { role: 'forceReload' },
+      { role: 'toggleDevTools' },
+      { type: 'separator' },
+      { role: 'resetZoom' },
+      { role: 'zoomIn' },
+      { role: 'zoomOut' },
+      { type: 'separator' },
+      { role: 'togglefullscreen' }
+    ]
+  },
+  {
+    label: 'Window',
+    role: 'window',
+    submenu: [
+      { role: 'minimize' },
+      { role: 'zoom' },
+      ...(isMac ? [
+        { type: 'separator' },
+        { role: 'front' },
+        { type: 'separator' },
+        { role: 'window' }
+      ] : [
+        { role: 'close' }
+      ])
+    ]
+  },
+  {
+    label: 'Help',
+    role: 'help',
+    submenu: [
+      {
+        label: 'Learn More',
+        click: async () => {
+          await shell.openExternal('https://github.com/IanKlein6/Sample-Blindfolder-2.0');
+        }
+      }
+    ]
+  }
+];
+
+const menu = Menu.buildFromTemplate(template);
+Menu.setApplicationMenu(menu);
+
+
 // Optional: Opens DevTools automatically for debugging when app starts in development mode
 // Uncomment this block if you want to start with DevTools open in detached mode
 // app.on('ready', () => {
 //   createWindow();
 //   mainWindow.webContents.openDevTools({ mode: 'detach' });
 // });
+
+
 
 app.on('ready', createWindow); //created when the app is ready
 

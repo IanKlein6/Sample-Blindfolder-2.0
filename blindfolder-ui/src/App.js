@@ -43,6 +43,29 @@ function App() {
     localStorage.setItem('appSettings', JSON.stringify(settings));
   }, [settings]);
 
+  //Wire menu navigation to electron
+  useEffect(() => {
+    const ipc = window?.electronAPI;
+    if (!ipc) return;
+
+    const handleMenuSelectFolders = () => {
+      console.log('[Renderer] Menu triggered folder select');
+      handleAddFolder();
+    };
+
+    const handleMenuSelectDestination = () => {
+      console.log('[Renderer] Menu triggered destination select');
+      handleRename();
+    };
+
+    ipc.onMenuSelectFolders(handleMenuSelectFolders);
+    ipc.onMenuSelectDestination(handleMenuSelectDestination);
+
+    return () => {
+    };
+  }, []);
+
+
   // Add selected folders from the user's file system
   const handleAddFolder = async () => {
     const selectedFolders = await window.electronAPI.selectFolders();
