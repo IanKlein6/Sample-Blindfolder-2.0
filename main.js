@@ -2,7 +2,8 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev'); 
-require('./electron'); // IPC handlers
+console.log('[Blindfolder] Requiring electron.js');
+require(path.join(__dirname, 'electron')); // IPC handlers
 
 let mainWindow; 
 

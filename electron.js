@@ -11,6 +11,8 @@ log("Created by Ian Klein and Jost Wiggering - BlindFolder 2.0");
 
 let mainWindow; 
 
+console.log('[Blindfolder] Electron IPC handlers loaded')
+
 // Handler for folder selection (allows multiple folder selection)
 ipcMain.handle('select-folders', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
