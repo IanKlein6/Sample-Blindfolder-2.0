@@ -40,7 +40,7 @@
     },
     "linux": {
       "target": "AppImage",
-      "icon": "images/Blindfolder_icon_square.png"
+      "icon": "images/Blindfolder_icon.png"
     }
   },
   "devDependencies": {
