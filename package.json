@@ -1,7 +1,7 @@
 {
   "name": "sample-blindfolder-2.0",
   "copyright": "© 2025 Ian Klein and Jost Wiggering",
-  "version": "2.0",
+  "version": "2.0.0",
   "description": "BlindFolder 2.0 - Update from Blindfolder 1.0",
   "author": "Ian Klein and Jost Wiggering",
   "main": "main.js",
@@ -26,7 +26,6 @@
     "asar": true,
     "appId": "com.sampleblindfolder.v2",
     "productName": "BlindFolder 2.0",
-    "artifactName": "BlindFolder 2.0.exe",
     "files": [
       "main.js",
       "electron.js",
@@ -41,6 +40,7 @@
     "win": {
       "target": "portable",
       "icon": "images/Blindfolder_icon.ico",
+      "artifactName": "BlindFolder 2.0.exe",
       "signAndEditExecutable": false
     },
     "mac": {
