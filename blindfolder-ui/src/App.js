@@ -7,6 +7,7 @@ import FolderNameModal from './components/FolderNameModal';
 import InstructionsModal from './components/InstructionsModal';
 import { lightTheme, darkTheme } from './theme';
 import { log, error } from './utils/logger';
+import { useEffect } from 'react';
 
 
 function App() {
@@ -42,6 +43,48 @@ function App() {
   useEffect(() => {
     localStorage.setItem('appSettings', JSON.stringify(settings));
   }, [settings]);
+
+  // Update checker
+  useEffect(() => {
+    window.electronAPI.getAppVersion().then((currentVersion) => {
+      fetch("https://api.github.com/repos/IanKlein6/Sample-Blindfolder-2.0/releases/latest")
+        .then(res => res.json())
+        .then(data => {
+          const latestVersion = data.tag_name.replace(/^v/, "");
+
+          const ignoredVersion = localStorage.getItem('ignoredVersion');
+          if (ignoredVersion === latestVersion) {
+            console.log(`[BlindFolder] Update to v${latestVersion} is ignored by user`);
+            return; // skip update prompt
+          }
+
+          if (latestVersion !== currentVersion) {
+            const choice = window.confirm(
+              `🚀 A new version is available (v${latestVersion}). You’re on v${currentVersion}.\n\nClick OK to open the download page.\nClick Cancel to see more options.`
+            );
+
+            if (choice) {
+              window.electronAPI.openExternal(data.html_url);
+            } else {
+              const laterChoice = window.prompt(
+                `Update Options:\nType:\n - "ignore" to skip this version\n - "later" to be reminded next time\n\nLeave empty to do nothing.`
+              );
+
+              if (laterChoice?.toLowerCase() === 'ignore') {
+                localStorage.setItem('ignoredVersion', latestVersion);
+                console.log(`[BlindFolder] User chose to ignore update v${latestVersion}`);
+              } else {
+                console.log(`[BlindFolder] User chose to be reminded later for v${latestVersion}`);
+                // Nothing saved — will re-prompt next time
+              }
+            }
+          }
+        })
+        .catch(err => {
+          console.warn("[BlindFolder] Update check failed:", err);
+        });
+    });
+  }, []);
 
   //Wire menu navigation to electron
   useEffect(() => {
