@@ -1,7 +1,8 @@
 {
   "name": "sample-blindfolder-2.0",
-  "version": "2.0.0",
-  "description": "BlindFolder 2.0 - Updated to Blindfolder 1.0",
+  "copyright": "© 2025 Ian Klein and Jost Wiggering",
+  "version": "2.0",
+  "description": "BlindFolder 2.0 - Update from Blindfolder 1.0",
   "author": "Ian Klein <ianklein66@gmail.com>",
   "main": "main.js",
   "scripts": {
