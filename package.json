@@ -31,7 +31,7 @@
       "buildResources": "assets"
     },
     "win": {
-      "target": "nsis",
+      "target": "portable",
       "icon": "images/Blindfolder_icon.ico"
     },
     "mac": {
