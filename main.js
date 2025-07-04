@@ -1,5 +1,5 @@
 // Electron and Node.js dependencies
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev'); 
 console.log('[Blindfolder] Requiring electron.js');
@@ -80,8 +80,6 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-const { Menu, shell } = require('electron');
 
 const isMac = process.platform === 'darwin';
 
@@ -198,6 +196,12 @@ Menu.setApplicationMenu(menu);
 
 
 app.on('ready', createWindow); //created when the app is ready
+
+// Handler for get version 
+ipcMain.handle('get-app-version', () => {
+  return app.getVersion();
+});
+
 
 // Global error handling for main process
 process.on('uncaughtException', (err) => {

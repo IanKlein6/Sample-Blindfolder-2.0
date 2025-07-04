@@ -49,6 +49,11 @@ function App() {
       fetch("https://api.github.com/repos/IanKlein6/Sample-Blindfolder-2.0/releases/latest")
         .then(res => res.json())
         .then(data => {
+          if (!data?.tag_name) {
+            console.warn("[BlindFolder] No release tag found in GitHub response:", data);
+            return;
+          }
+
           const latestVersion = data.tag_name.replace(/^v/, "");
 
           const ignoredVersion = localStorage.getItem('ignoredVersion');
@@ -74,7 +79,6 @@ function App() {
                 console.log(`[BlindFolder] User chose to ignore update v${latestVersion}`);
               } else {
                 console.log(`[BlindFolder] User chose to be reminded later for v${latestVersion}`);
-                // Nothing saved — will re-prompt next time
               }
             }
           }
@@ -84,6 +88,7 @@ function App() {
         });
     });
   }, []);
+
 
   //Wire menu navigation to electron
   useEffect(() => {
