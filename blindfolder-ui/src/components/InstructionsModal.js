@@ -99,6 +99,9 @@ function InstructionsModal({ open, onClose }) {
           {/* Copyright Section */}
           <Typography variant="h6" gutterBottom>Copyright</Typography>
           <Typography paragraph>
+            Licensed under the MIT License 
+          </Typography>
+          <Typography paragraph>
             © 2024 Blindfolder, All Rights Reserved by Ian Klein and Jost Wiggering.
           </Typography>
         </Box>
