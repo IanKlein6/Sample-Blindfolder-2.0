@@ -7,7 +7,6 @@ import FolderNameModal from './components/FolderNameModal';
 import InstructionsModal from './components/InstructionsModal';
 import { lightTheme, darkTheme } from './theme';
 import { log, error } from './utils/logger';
-import { useEffect } from 'react';
 
 
 function App() {

@@ -1,31 +1,48 @@
-import React from 'react';
-import { 
-  FormControl, InputLabel, Select, MenuItem, Switch, 
-  FormControlLabel, TextField, Box, Button, Grid, 
-  useTheme, Typography 
+import React, { useState, useEffect } from 'react';
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Switch,
+  FormControlLabel,
+  TextField,
+  Box,
+  Button,
+  Grid,
+  useTheme,
+  Typography
 } from '@mui/material';
 
 function SettingsPanel({ settings, setSettings, onShowInstructions }) {
-  // Access the theme object using MUI's useTheme hook
   const theme = useTheme();
 
-  // Handle form changes for all input fields
+  // Get app version
+  const [appVersion, setAppVersion] = useState('');
+
+  useEffect(() => {
+    if (window?.electronAPI?.getAppVersion) {
+      window.electronAPI.getAppVersion().then(setAppVersion);
+    }
+  }, []);
+
+  // Handle input changes (both text and checkbox)
   const handleChange = (event) => {
     const { name, value, checked, type } = event.target;
     setSettings({
       ...settings,
-      [name]: type === 'checkbox' ? checked : value, // Handle checkbox and regular inputs
+      [name]: type === 'checkbox' ? checked : value,
     });
   };
 
   return (
     <Box sx={{ padding: 2, backgroundColor: 'background.paper', borderRadius: 2 }}>
-      {/* Settings title */}
+      {/* Title */}
       <Typography variant="h6" gutterBottom align="center">
         Settings
       </Typography>
-      
-      {/* Naming Prefix Input */}
+
+      {/* Naming Prefix */}
       <Grid item xs={12}>
         <TextField
           label="Naming Prefix"
@@ -55,12 +72,18 @@ function SettingsPanel({ settings, setSettings, onShowInstructions }) {
         </FormControl>
       </Grid>
 
-      {/* Switches for various settings */}
+      {/* Toggle Settings */}
       <Grid container spacing={2}>
-        {/* Auto Open Folder Switch */}
+        {/* Auto Open Folder */}
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Switch checked={settings.autoOpen} onChange={handleChange} name="autoOpen" />}
+            control={
+              <Switch
+                checked={settings.autoOpen}
+                onChange={handleChange}
+                name="autoOpen"
+              />
+            }
             label={
               <Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
                 Auto Open Folder
@@ -70,10 +93,16 @@ function SettingsPanel({ settings, setSettings, onShowInstructions }) {
           />
         </Grid>
 
-        {/* Dark Mode Switch */}
+        {/* Dark Mode */}
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Switch checked={settings.darkMode} onChange={handleChange} name="darkMode" />}
+            control={
+              <Switch
+                checked={settings.darkMode}
+                onChange={handleChange}
+                name="darkMode"
+              />
+            }
             label={
               <Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
                 Dark Mode
@@ -83,10 +112,16 @@ function SettingsPanel({ settings, setSettings, onShowInstructions }) {
           />
         </Grid>
 
-        {/* Show Instructions on Startup Switch */}
+        {/* Show Instructions */}
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Switch checked={settings.showInstructions} onChange={handleChange} name="showInstructions" />}
+            control={
+              <Switch
+                checked={settings.showInstructions}
+                onChange={handleChange}
+                name="showInstructions"
+              />
+            }
             label={
               <Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
                 Show Instructions on Startup
@@ -96,21 +131,31 @@ function SettingsPanel({ settings, setSettings, onShowInstructions }) {
           />
         </Grid>
 
-        {/* Button to Manually Show Instructions */}
+        {/* Show Instructions Button */}
         <Grid item xs={12}>
           <Button
             variant="contained"
             onClick={onShowInstructions}
-            sx={{ 
-              backgroundColor: theme.palette.custom.button1.background, 
-              color: theme.palette.custom.button1.color, 
-              '&:hover': { backgroundColor: theme.palette.custom.button2.background } 
+            sx={{
+              backgroundColor: theme.palette.custom.button1.background,
+              color: theme.palette.custom.button1.color,
+              '&:hover': { backgroundColor: theme.palette.custom.button2.background }
             }}
           >
             Show Instructions
           </Button>
         </Grid>
       </Grid>
+
+      {/* App Version */}
+      <Typography
+        variant="caption"
+        color="textSecondary"
+        align="center"
+        sx={{ display: 'block', mt: 2 }}
+      >
+        BlindFolder version {appVersion}
+      </Typography>
     </Box>
   );
 }
