@@ -55,7 +55,7 @@ function AppSelector({ selectedApp, setSelectedApp, settings = {} }) {
           © 2024 BlindFolder 2.0, All Rights Reserved by 
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          Ian Klein and Jost Wiggering.
+          Ian Klein and Jost Wiggering
         </Typography>
         <Button
           variant="outlined"
