@@ -1,6 +1,6 @@
 # BlindFolder 2.0
 
-**Note**: I am happy to anounce that this application is now in production and has been officaily released: realease link: 
+**Note**: I am happy to announce that this application is now in production and has been officially released: https://github.com/IanKlein6/Sample-Blindfolder-2.0/releases/tag/v2.0.0
 
 ## 1. Overview and Update
 
