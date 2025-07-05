@@ -112,6 +112,25 @@ function SettingsPanel({ settings, setSettings, onShowInstructions }) {
           />
         </Grid>
 
+        {/* Check for Updates Toggle */}
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={settings.checkForUpdates}
+                onChange={handleChange}
+                name="checkForUpdates"
+              />
+            }
+            label={
+              <Typography sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
+                Automatically Check for Updates
+              </Typography>
+            }
+            sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}
+          />
+        </Grid>
+
         {/* Show Instructions */}
         <Grid item xs={12}>
           <FormControlLabel
@@ -129,6 +148,25 @@ function SettingsPanel({ settings, setSettings, onShowInstructions }) {
             }
             sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}
           />
+        </Grid>
+
+        {/* Manual Check for Updates Button */}
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            onClick={() => window.dispatchEvent(new CustomEvent('manual-check-update'))}
+            sx={{
+              color: theme.palette.custom.button1.color,
+              borderColor: theme.palette.custom.button1.background,
+              '&:hover': {
+                backgroundColor: theme.palette.custom.button2.background,
+                color: theme.palette.custom.button2.color
+              },
+              marginBottom: 2
+            }}
+          >
+            Manually Check for Updates
+          </Button>
         </Grid>
 
         {/* Show Instructions Button */}

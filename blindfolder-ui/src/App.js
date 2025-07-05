@@ -1,3 +1,4 @@
+// App.js
 import React, { useState, useMemo, useEffect } from 'react';
 import { CssBaseline, Grid, Paper, CircularProgress, Backdrop, ThemeProvider } from '@mui/material';
 import AppSelector from './components/AppSelector';
@@ -8,22 +9,21 @@ import InstructionsModal from './components/InstructionsModal';
 import { lightTheme, darkTheme } from './theme';
 import { log, error } from './utils/logger';
 
-
 function App() {
-
   // Load settings from localStorage or use default settings
   const loadSettings = () => {
     const savedSettings = localStorage.getItem('appSettings');
     return savedSettings
       ? JSON.parse(savedSettings)
       : {
-        autoOpen: false,
-        autoName: false,
-        namingPrefix: '',
-        fileFormat: 'xlsx',
-        darkMode: false,
-        showInstructions: true,
-      };
+          autoOpen: false,
+          autoName: false,
+          namingPrefix: '',
+          fileFormat: 'xlsx',
+          darkMode: false,
+          showInstructions: true,
+          checkForUpdates: true,
+        };
   };
 
   // State variables for managing app state
@@ -43,8 +43,8 @@ function App() {
     localStorage.setItem('appSettings', JSON.stringify(settings));
   }, [settings]);
 
-  // Update checker
-  useEffect(() => {
+  // Function to check for updates
+  const runUpdateCheck = () => {
     window.electronAPI.getAppVersion().then((currentVersion) => {
       fetch("https://api.github.com/repos/IanKlein6/Sample-Blindfolder-2.0/releases/latest")
         .then(res => res.json())
@@ -57,8 +57,8 @@ function App() {
           }
 
           const latestVersion = data.tag_name.replace(/^v/, "");
-
           const ignoredVersion = localStorage.getItem('ignoredVersion');
+
           if (ignoredVersion === latestVersion) {
             console.log(`[BlindFolder] Update to v${latestVersion} is ignored by user`);
             return; // skip update prompt
@@ -89,8 +89,21 @@ function App() {
           console.warn("[BlindFolder] Update check failed:", err);
         });
     });
-  }, []);
+  };
 
+  // Initial update check
+  useEffect(() => {
+    if (settings.checkForUpdates) {
+      runUpdateCheck();
+    }
+  }, [settings.checkForUpdates]);
+
+  // Manual update check event listener
+  useEffect(() => {
+    const handler = () => runUpdateCheck();
+    window.addEventListener('manual-check-update', handler);
+    return () => window.removeEventListener('manual-check-update', handler);
+  }, []);
 
   //Wire menu navigation to electron
   useEffect(() => {
@@ -109,11 +122,7 @@ function App() {
 
     ipc.onMenuSelectFolders(handleMenuSelectFolders);
     ipc.onMenuSelectDestination(handleMenuSelectDestination);
-
-    return () => {
-    };
   }, []);
-
 
   // Add selected folders from the user's file system
   const handleAddFolder = async () => {
@@ -161,8 +170,8 @@ function App() {
       if (settings.autoOpen) {
         await window.electronAPI.openFolder(destinationFolder);
       }
-    } catch (error) {
-      error('Error processing folders:', error);
+    } catch (err) {
+      error('Error processing folders:', err);
       alert('An error occurred while processing the folders. Please try again.');
     } finally {
       setIsProcessing(false); // Hide processing indicator
