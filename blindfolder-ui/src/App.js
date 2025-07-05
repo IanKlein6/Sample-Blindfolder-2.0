@@ -66,7 +66,7 @@ function App() {
 
           if (latestVersion !== currentVersion) {
             const choice = window.confirm(
-              `A new version is available (v${latestVersion}). You’re on v${currentVersion}.\n\nClick OK to open the download page.\nClick Cancel to be reminded later.`
+              `A new version is available (v${latestVersion}). You’re on v${currentVersion}.\n\nClick OK to open the download page.\nClick Cancel to postpone.`
             );
 
             if (choice) {
