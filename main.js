@@ -185,7 +185,6 @@ const template = [
 const menu = Menu.buildFromTemplate(template);
 Menu.setApplicationMenu(menu);
 
-
 // Optional: Opens DevTools automatically for debugging when app starts in development mode
 // Uncomment this block if you want to start with DevTools open in detached mode
 // app.on('ready', () => {
@@ -193,15 +192,16 @@ Menu.setApplicationMenu(menu);
 //   mainWindow.webContents.openDevTools({ mode: 'detach' });
 // });
 
-
-
 app.on('ready', createWindow); //created when the app is ready
 
 // Handler for get version 
-ipcMain.handle('get-app-version', () => {
+ipcMain.handle('open-external', async (event, url) => {
+  const { shell } = require('electron');
+  await shell.openExternal(url);
+});
+ipcMain.handle('get-app-version', async () => {
   return app.getVersion();
 });
-
 
 // Global error handling for main process
 process.on('uncaughtException', (err) => {

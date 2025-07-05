@@ -49,6 +49,8 @@ function App() {
       fetch("https://api.github.com/repos/IanKlein6/Sample-Blindfolder-2.0/releases/latest")
         .then(res => res.json())
         .then(data => {
+          console.log("[BlindFolder] Full GitHub release data:", JSON.stringify(data, null, 2));
+
           if (!data?.tag_name) {
             console.warn("[BlindFolder] No release tag found in GitHub response:", data);
             return;
@@ -64,7 +66,7 @@ function App() {
 
           if (latestVersion !== currentVersion) {
             const choice = window.confirm(
-              `🚀 A new version is available (v${latestVersion}). You’re on v${currentVersion}.\n\nClick OK to open the download page.\nClick Cancel to see more options.`
+              `A new version is available (v${latestVersion}). You’re on v${currentVersion}.\n\nClick OK to open the download page.\nClick Cancel to see more options.`
             );
 
             if (choice) {
