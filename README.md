@@ -1,6 +1,6 @@
 # BlindFolder 2.0
 
-**Note**: I am happy to announce that this application is now in production and has been officially released: https://github.com/IanKlein6/Sample-Blindfolder-2.0/releases
+**Note**: This application is now in production and has been officially released: https://github.com/IanKlein6/Sample-Blindfolder-2.0/releases
 
 ## 1. Overview and Update
 
@@ -56,7 +56,6 @@ BlindFolder 2.0 is a robust, user-friendly application designed to enhance lab e
 ## 4. Looking Ahead
 
 This isn’t the end of the journey. BlindFolder 2.0 lays the foundation for future expansion — whether that means supporting new scientific workflows, integrating additional image processing steps, or deploying the app across more labs.
-If you’re interested in contributing ideas or collaborating on future features, feel free to reach out.
 
 **Acknowledgments**
 
