@@ -57,6 +57,6 @@ BlindFolder 2.0 is a robust, user-friendly application designed to enhance lab e
 
 This isn’t the end of the journey. BlindFolder 2.0 lays the foundation for future expansion — whether that means supporting new scientific workflows, integrating additional image processing steps, or deploying the app across more labs.
 
-**Acknowledgments**
+## Acknowledgments 
 
 Special thanks to Jost Wiggering for the collaboration.
