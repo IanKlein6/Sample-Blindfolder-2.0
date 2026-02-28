@@ -157,7 +157,7 @@ function App() {
 
     try {
       // Invoke Electron process to rename files in the folders
-      const excelFilePath = await window.electronAPI.processFolders({
+      const excelFilePath = await window.electronAPI.processFiles({
         folders,
         destinationFolder,
         folderName,
