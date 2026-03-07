@@ -1,4 +1,5 @@
 // Preload.js 
+
 /** Preload script - security bridge between the renderer and main process.
  * Runs in the renderer process context but has access to Node.js APIs. 
  * Uses Electron's contextBridge to create a secure communication channel between the renderer and main processes. Allows the React app to invoke IPC handlers defined in the main process without exposing Node.js APIs directly to the renderer. 
