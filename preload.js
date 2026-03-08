@@ -1,4 +1,4 @@
-// Preload.js 
+// preload.js 
 
 /** Preload script - security bridge between the renderer and main process.
  * Runs in the renderer process context but has access to Node.js APIs. 
@@ -11,7 +11,9 @@
 
 const { contextBridge, ipcRenderer } = require('electron');
 
-/** Exposes Electrons API's to the renderer process (React UI). Functions preform OS-level operations sending IPC messages to main process. 
+/** Exposes Electrons API's to the renderer process (React UI). 
+ * Functions perform OS-level operations sending IPC messages to main process. 
+ * 
  * selectFolders: Select folders to be processed.
  *    Opens OS folder picker, allows for multi folder select. Returns a Promise resolves into an array of the paths of the selected folders. 
  * 
@@ -28,11 +30,11 @@ const { contextBridge, ipcRenderer } = require('electron');
  *    Retrieves App version number from package.json. Compares against latest Github Release to notify user of an available update. Returns a Promise resolving to the version string (e.g. "2.0.0")
  * 
  * openExternal: Opens URL in the systems default browser. 
- *    @param {string} url - The URL open (PayPal donation link)
+ *    @param {string} url - The URL to open (PayPal donation link)
  * 
- * onMenuSelectFolders: Listens for the user to click File > Select Folder(s) in the native app menu bar (or press Cmd+0 / Ctrl+0). Fires callback to trigger folder selection in the UI. @param {Function} callback - Function to execute when the menu action is triggered. 
+ * onMenuSelectFolders: Listens for the user to click File > Select Folder(s) in the native app menu bar (or press Cmd+O / Ctrl+O). Fires callback to trigger folder selection in the UI. @param {Function} callback - Function to execute when the menu action is triggered. 
  * 
- * onMenuSelectDestination: Listens for the user to click File > Select Destination in the native app menu bar (or press Cmd+D / Ctrl+d). Fires callback to trigger selection of destination folder in the UI. @param {Function} callback - Function to execute when the menu action is triggered. 
+ * onMenuSelectDestination: Listens for the user to click File > Select Destination in the native app menu bar (or press Cmd+D / Ctrl+D). Fires callback to trigger selection of destination folder in the UI. @param {Function} callback - Function to execute when the menu action is triggered. 
  */
 contextBridge.exposeInMainWorld('electronAPI', {
   selectFolders: () => ipcRenderer.invoke('select-folders'), 

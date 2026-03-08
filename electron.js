@@ -1,4 +1,18 @@
-// Electron and Node.js dependencies
+// electron.js 
+
+/** The applications processing center 
+ * 
+ * IPC Handlers:
+ *  select-folders - Allows for selecting multiple folders on OS.
+ *  select-destination - Allows for selecting a single destination folder for the processed files.
+ *  process-folders - Processes all the samples from within the selected folders: shuffles, renames, copies to destination, generates log
+ *  open-folder - Opens destination folder when processing is finished. 
+ * 
+ * Functions:
+ *  extractNumberForSorting - Extracts number from file name for sorting in the spreadsheet 
+ *  shuffleArray - Randomly shuffles an array in place, used to randomize files for blinding. 
+ * 
+ */
 const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -13,7 +27,7 @@ let mainWindow;
 
 console.log('[Blindfolder] Electron IPC handlers loaded')
 
-// Handler for folder selection (allows multiple folder selection)
+// Folder selecting (allows multiple folder selection)
 ipcMain.handle('select-folders', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory', 'multiSelections'],
@@ -22,7 +36,7 @@ ipcMain.handle('select-folders', async () => {
   return result.filePaths;
 });
 
-// Handler for destination folder selection
+// Destination folder selection
 ipcMain.handle('select-destination', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory'],
@@ -31,7 +45,7 @@ ipcMain.handle('select-destination', async () => {
   return result.filePaths[0];
 });
 
-// Handler for processing folders and organizing files
+// Blinds files from selected folders
 ipcMain.handle('process-folders', async (event, { folders, destinationFolder, folderName, settings }) => {
   if (!folders || !destinationFolder || !folderName) {
     throw new Error('Invalid arguments: folders, destinationFolder, or folderName are missing');
@@ -86,7 +100,8 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
 
     log('Rename data:', renameData);
 
-    const logFilename = `${prefix}_Blindfolder_log`; // Filename for logs (without extension)
+    // Filename for logs (without extension)
+    const logFilename = `${prefix}_Blindfolder_log`; 
 
     // Handle file saving based on settings (Excel or CSV)
     if (settings.fileFormat === 'xlsx') {
@@ -94,12 +109,12 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
       const sortedByBlind = workbook.addWorksheet('Sorted by Blind Samples');
       const sortedByOriginal = workbook.addWorksheet('Sorted by Original Samples');
 
-      // Sort and add data to Excel worksheet (sorted by Blind Samples)
+      // Sort and add data to worksheet (sorted by Blind Samples)
       renameData.sort((a, b) => extractNumberForSorting(a['Blind Samples']) - extractNumberForSorting(b['Blind Samples']));
       sortedByBlind.addRow(['Blind Samples', 'Original Samples']);
       renameData.forEach(data => sortedByBlind.addRow([data['Blind Samples'], data['Original Samples']]));
 
-      // Sort and add data to another worksheet (sorted by Original Samples)
+      // Sort and add data to second worksheet (sorted by Original Samples)
       renameData.sort((a, b) => extractNumberForSorting(a['Original Samples']) - extractNumberForSorting(b['Original Samples']));
       sortedByOriginal.addRow(['Original Samples', 'Blind Samples']);
       renameData.forEach(data => sortedByOriginal.addRow([data['Original Samples'], data['Blind Samples']]));

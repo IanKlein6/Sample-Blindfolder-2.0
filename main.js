@@ -1,4 +1,4 @@
-// Main.js 
+// main.js 
 
 /** Main entry point for the Electron window 
  * 
@@ -22,7 +22,7 @@ let mainWindow;
 
 /** Main application window creation
  * Creates main window with predefined width, height, icon. 
- * Loads preload script, sets nodeIntegration security to False, contextIsolation to True, and enableRemoteModule to False. 
+ * Loads preload script, sets nodeIntegration security to false, contextIsolation to true, and enableRemoteModule to false. 
  */
 function createWindow() {
   mainWindow = new BrowserWindow({
