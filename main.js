@@ -1,6 +1,17 @@
 // Main.js 
 
-/** */
+/** Main entry point for the Electron window 
+ * 
+ * Functions:
+ *  createWindow() - loads main electron window with size parameters and security preferences. 
+ * 
+ * IPC Handlers:
+ *  open-external - Opens URL in the system's default browser (Paypal donation link).
+ *  get-app-version - Returns the app version from package.json. Used for check for updates. 
+ *  
+ * Native Menu:
+ *  template - Defines the app menu bar structure and keyboard shortcuts (includes macOS specific app menus).
+ */
 const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev'); 
@@ -9,7 +20,10 @@ require(path.join(__dirname, 'electron')); // IPC handlers
 
 let mainWindow; 
 
-// Function to create the main application window
+/** Main application window creation
+ * Creates main window with predefined width, height, icon. 
+ * Loads preload script, sets nodeIntegration security to False, contextIsolation to True, and enableRemoteModule to False. 
+ */
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800, 
@@ -17,31 +31,31 @@ function createWindow() {
     icon: path.join(__dirname, 'images', 'Blindfolder_icon_square.png'), // Update path if needed
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: false,
+      nodeIntegration: false, // Security. disables remote content/code integration 
       contextIsolation: true,
       enableRemoteModule: false
     },
   });
 
-  // Determine the URL to load based on the environment (development vs production)
+  // Render in Production or Developer mode (Developer enables DevTools for debugging)
   const startUrl = isDev
     ? 'http://localhost:3000'
-    : `file://${path.join(__dirname, 'blindfolder-ui/build/index.html')}`; // Production build URL for React app
+    : `file://${path.join(__dirname, 'blindfolder-ui/build/index.html')}`; // Production build URL for the React app
 
   console.log('Loading URL:', startUrl);
-  mainWindow.loadURL(startUrl); // Load the appropriate URL in the browser window
+  mainWindow.loadURL(startUrl);
 
-  // If in development mode, open DevTools for debugging
+  // Opens DevTools for debugging
   if (isDev) {
-    mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();  
   }
 
-  // Handle error when content fails to load
+  // Handle error when content fails to load 
   mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
     console.error(`Failed to load: ${errorDescription} (Code: ${errorCode})`);
   });
 
-  // Log if the webContents crashes
+  // Log if the webContents crashes 
   mainWindow.webContents.on('crashed', (event) => {
     console.error('The webContents has crashed:', event);
   });
@@ -69,13 +83,13 @@ function createWindow() {
 
 // Handler for when all windows are closed
 app.on('window-all-closed', () => {
-  // Quit the app unless on macOS (macOS apps usually stay active until the user explicitly quits)
+  // Quit the app unless on macOS (macOS apps stay active until the user explicitly quits) 
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-// Handle the 'activate' event, which is fired when the app is launched or re-activated (e.g., when clicking the app icon)
+// Handle the 'activate' event, which is fired when the app is launched or re-activated (e.g. when clicking the app icon)
 app.on('activate', () => {
   // Recreate the window if there are no windows open (macOS behavior)
   if (BrowserWindow.getAllWindows().length === 0) {
@@ -194,13 +208,15 @@ Menu.setApplicationMenu(menu);
 //   mainWindow.webContents.openDevTools({ mode: 'detach' });
 // });
 
-app.on('ready', createWindow); //created when the app is ready
+app.on('ready', createWindow); // Launch app once electron is ready.
 
-// Handler for get version 
+// Opens URLs in external browser
 ipcMain.handle('open-external', async (event, url) => {
   const { shell } = require('electron');
   await shell.openExternal(url);
 });
+
+// Returns app version from package.json
 ipcMain.handle('get-app-version', async () => {
   return app.getVersion();
 });
@@ -210,6 +226,7 @@ process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
 });
 
+// Global error handling for promise rejection
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Promise Rejection:', reason);
 });
