@@ -129,6 +129,7 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
       await workbook.xlsx.writeFile(excelFilename);
       log('Excel file created at:', excelFilename);
       return excelFilename;
+
     } else if (settings.fileFormat === 'csv') {
       // Prepare CSV content and save as CSV file
       const csvContent = renameData.map(data => `${data['Original Samples']},${data['Blind Samples']}`).join('\n');
@@ -136,6 +137,10 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
       fs.writeFileSync(csvFilename, csvContent);
       log('CSV file created at:', csvFilename);
       return csvFilename;
+
+    } else {
+      error('No accepted file format selected: ', settings.fileFormat); 
+      throw new Error('No accepted file format selected');
     }
   } catch (err) {
     error('Error processing folders:', err);
