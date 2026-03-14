@@ -15,8 +15,9 @@
 const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev'); 
-console.log('[Blindfolder] Requiring electron.js');
 const { setMainWindow } = require(path.join(__dirname, 'electron')); // IPC handlers
+const { log } = require('./utils/logger');
+console.log('[Blindfolder] Requiring electron.js');
 
 let mainWindow; 
 
@@ -214,7 +215,7 @@ app.on('ready', createWindow); // Launch app once electron is ready.
 // Opens URLs in external browser
 ipcMain.handle('open-external', async (event, url) => {
   const parsed = new URL(url);
-  if (parsed. protocol !== 'https:') {  
+  if (parsed.protocol !== 'https:') {  
     log('Blocked non-https URL:', url);
     return;
   }

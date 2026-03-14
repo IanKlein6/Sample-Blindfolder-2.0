@@ -13,18 +13,17 @@
  *  shuffleArray - Randomly shuffles an array in place, used to randomize files for blinding. 
  * 
  */
-const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
+const { ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const ExcelJS = require('exceljs'); 
-const isDev = require('electron-is-dev');
 const { log, error } = require('./utils/logger');
 
 // Signature for code ownership
 log("Created by Ian Klein and Jost Wiggering - BlindFolder 2.0");
 
+// Setter 
 let mainWindow = null;
-
 function setMainWindow(window) {
   mainWindow = window;
 }
