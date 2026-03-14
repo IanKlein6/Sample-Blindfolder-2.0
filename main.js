@@ -16,7 +16,7 @@ const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev'); 
 console.log('[Blindfolder] Requiring electron.js');
-require(path.join(__dirname, 'electron')); // IPC handlers
+const { setMainWindow } = require(path.join(__dirname, 'electron')); // IPC handlers
 
 let mainWindow; 
 
@@ -36,6 +36,7 @@ function createWindow() {
       enableRemoteModule: false
     },
   });
+  setMainWindow(mainWindow);
 
   // Render in Production or Developer mode (Developer enables DevTools for debugging)
   const startUrl = isDev

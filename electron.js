@@ -23,7 +23,11 @@ const { log, error } = require('./utils/logger');
 // Signature for code ownership
 log("Created by Ian Klein and Jost Wiggering - BlindFolder 2.0");
 
-let mainWindow; 
+let mainWindow = null;
+
+function setMainWindow(window) {
+  mainWindow = window;
+}
 
 console.log('[Blindfolder] Electron IPC handlers loaded')
 
@@ -167,3 +171,6 @@ function shuffleArray(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
+
+// Export setMainWindow so main.js can pass the window reference after creation
+module.exports = { setMainWindow };
