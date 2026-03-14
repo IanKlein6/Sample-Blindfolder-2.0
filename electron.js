@@ -68,9 +68,11 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
     const currentDate = new Date().toISOString().split('T')[0].replace(/-/g, '');
     const allFiles = [];
 
-    // Collect all files from selected folders
+    // Collect all files from selected folders. Filter separating files from Folders.
     for (const folder of folders) {
-      const files = fs.readdirSync(folder).map(file => path.join(folder, file));
+      const files = fs.readdirSync(folder)
+      .map(file => path.join(folder, file))
+      .filter(filePath => fs.statSync(filePath).isFile() && !filePath.startsWith(outputFolder));
       allFiles.push(...files);
     }
 
