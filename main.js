@@ -212,7 +212,11 @@ app.on('ready', createWindow); // Launch app once electron is ready.
 
 // Opens URLs in external browser
 ipcMain.handle('open-external', async (event, url) => {
-  const { shell } = require('electron');
+  const parsed = new URL(url);
+  if (parsed. protocol !== 'https:') {  
+    log('Blocked non-https URL:', url);
+    return;
+  }
   await shell.openExternal(url);
 });
 
