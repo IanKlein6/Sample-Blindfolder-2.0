@@ -134,9 +134,9 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
       log('CSV file created at:', csvFilename);
       return csvFilename;
     }
-  } catch (error) {
-    error('Error processing folders:', error);
-    throw error;
+  } catch (err) {
+    error('Error processing folders:', err);
+    throw err;
   }
 });
 
