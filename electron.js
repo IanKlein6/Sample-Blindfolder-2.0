@@ -75,7 +75,10 @@ ipcMain.handle('process-folders', async (event, { folders, destinationFolder, fo
     for (const folder of folders) {
       const files = fs.readdirSync(folder)
       .map(file => path.join(folder, file))
-      .filter(filePath => fs.statSync(filePath).isFile() && !filePath.startsWith(outputFolder));
+      .filter(filePath => {
+        return fs.statSync(filePath).isFile() && 
+        !path.resolve(filePath).startsWith(path.resolve(outputFolder));
+      });
       allFiles.push(...files);
     }
 
