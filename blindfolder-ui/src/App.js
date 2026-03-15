@@ -70,7 +70,13 @@ function App() {
             );
 
             if (choice) {
+              const parsed = new URL(data.html_url);
+              if (parsed.protocol !== 'https:') {  
+                console.warn('[BlindFolder] Blocked non-https URL:', data.html_url);
+                return;
+              }
               window.electronAPI.openExternal(data.html_url);
+              console.log('Correct https URL:', data.html_url);
             } else {
               const laterChoice = window.prompt(
                 `Update Options:\nType:\n - "ignore" to skip this version\n - "later" to be reminded next time\n\nLeave empty to do nothing.`
