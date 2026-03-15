@@ -45,57 +45,61 @@ function App() {
 
   // Function to check for updates
   const runUpdateCheck = () => {
-    window.electronAPI.getAppVersion().then((currentVersion) => {
-      fetch("https://api.github.com/repos/IanKlein6/Sample-Blindfolder-2.0/releases/latest")
-        .then(res => res.json())
-        .then(data => {
-          console.log("[BlindFolder] Full GitHub release data:", JSON.stringify(data, null, 2));
+    window.electronAPI.getAppVersion()
+      .then((currentVersion) => {
+        fetch("https://api.github.com/repos/IanKlein6/Sample-Blindfolder-2.0/releases/latest")
+          .then(res => res.json())
+          .then(data => {
+            console.log("[BlindFolder] Full GitHub release data:", JSON.stringify(data, null, 2));
 
-          if (!data?.tag_name) {
-            console.warn("[BlindFolder] No release tag found in GitHub response:", data);
-            return;
-          }
+            if (!data?.tag_name) {
+              console.warn("[BlindFolder] No release tag found in GitHub response:", data);
+              return;
+            }
 
-          const latestVersion = data.tag_name.replace(/^v/, "");
-          const ignoredVersion = localStorage.getItem('ignoredVersion');
+            const latestVersion = data.tag_name.replace(/^v/, "");
+            const ignoredVersion = localStorage.getItem('ignoredVersion');
 
-          if (ignoredVersion === latestVersion) {
-            console.log(`[BlindFolder] Update to v${latestVersion} is ignored by user`);
-            return; // skip update prompt
-          }
+            if (ignoredVersion === latestVersion) {
+              console.log(`[BlindFolder] Update to v${latestVersion} is ignored by user`);
+              return; // skip update prompt
+            }
 
-          if (latestVersion !== currentVersion) {
-            const choice = window.confirm(
-              `A new version is available (v${latestVersion}). You’re on v${currentVersion}.\n\nClick OK to open the download page.\nClick Cancel to postpone.`
-            );
-
-            if (choice) {
-              const parsed = new URL(data.html_url);
-              if (parsed.protocol !== 'https:') {  
-                console.warn('[BlindFolder] Blocked non-https URL:', data.html_url);
-                return;
-              }
-              window.electronAPI.openExternal(data.html_url);
-              console.log('Correct https URL:', data.html_url);
-            } else {
-              const laterChoice = window.prompt(
-                `Update Options:\nType:\n - "ignore" to skip this version\n - "later" to be reminded next time\n\nLeave empty to do nothing.`
+            if (latestVersion !== currentVersion) {
+              const choice = window.confirm(
+                `A new version is available (v${latestVersion}). You’re on v${currentVersion}.\n\nClick OK to open the download page.\nClick Cancel to postpone.`
               );
 
-              if (laterChoice?.toLowerCase() === 'ignore') {
-                localStorage.setItem('ignoredVersion', latestVersion);
-                console.log(`[BlindFolder] User chose to ignore update v${latestVersion}`);
+              if (choice) {
+                const parsed = new URL(data.html_url);
+                if (parsed.protocol !== 'https:') {  
+                  console.warn('[BlindFolder] Blocked non-https URL:', data.html_url);
+                  return;
+                }
+                window.electronAPI.openExternal(data.html_url);
+                console.log('Correct https URL:', data.html_url);
               } else {
-                console.log(`[BlindFolder] User chose to be reminded later for v${latestVersion}`);
+                const laterChoice = window.prompt(
+                  `Update Options:\nType:\n - "ignore" to skip this version\n - "later" to be reminded next time\n\nLeave empty to do nothing.`
+                );
+
+                if (laterChoice?.toLowerCase() === 'ignore') {
+                  localStorage.setItem('ignoredVersion', latestVersion);
+                  console.log(`[BlindFolder] User chose to ignore update v${latestVersion}`);
+                } else {
+                  console.log(`[BlindFolder] User chose to be reminded later for v${latestVersion}`);
+                }
               }
             }
-          }
+          })
+          .catch(err => {
+            console.warn("[BlindFolder] Update check failed:", err);
+          });
         })
         .catch(err => {
-          console.warn("[BlindFolder] Update check failed:", err);
+          console.warn("Github API retrieval failed:", err);
         });
-    });
-  };
+  };  
 
   // Initial update check
   useEffect(() => {
