@@ -24,7 +24,7 @@ function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFold
           onClick={onAddFolder}
           sx={{ 
             backgroundColor: theme.palette.custom.button1.background, 
-            color: theme.palette.custom.button1.fontcolor, 
+            color: theme.palette.custom.button1.color, 
             '&:hover': { backgroundColor: theme.palette.custom.button2.background } 
           }}
         >
@@ -37,7 +37,7 @@ function MainAppView({ selectedApp, folders, onAddFolder, onRename, onRemoveFold
           onClick={onRename}
           sx={{ 
             backgroundColor: theme.palette.custom.button1.background, 
-            color: theme.palette.custom.button1.fontcolor, 
+            color: theme.palette.custom.button1.color, 
             '&:hover': { backgroundColor: theme.palette.custom.button2.background } 
           }}
         >
